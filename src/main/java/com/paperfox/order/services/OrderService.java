@@ -1,2 +1,13 @@
-package com.paperfox.order.services;public class OrderService {
+package com.paperfox.order.services;
+
+import com.paperfox.order.models.Order;
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderService implements IOrderService {
+
+    @Override
+    public void create(Order order) {
+
+    }
 }

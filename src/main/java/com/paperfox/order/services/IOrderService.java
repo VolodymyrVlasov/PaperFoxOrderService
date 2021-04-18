@@ -1,2 +1,10 @@
-package com.paperfox.order.services;public class IOrderService {
+package com.paperfox.order.services;
+
+import com.paperfox.order.models.Order;
+
+public interface IOrderService {
+
+    void create(Order order);
+
+
 }

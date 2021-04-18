@@ -1,6 +1,6 @@
 # ERD Diagram
 
-![diagram](./ERD.vpd.png)
+![diagram](ERD.vpd.png)
 
 # Table `order`
 ``` 
