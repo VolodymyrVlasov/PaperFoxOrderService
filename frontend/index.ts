@@ -1,8 +1,27 @@
 class TestOrder {
     public static createDefaultOrder(order: Order) {
 
+        let url: URL = new URL("http://127.0.0.1:8080/api/order")
+
+        let request: Request = new Request(
+            url.toString(),
+            {
+                method: "POST",
+                body: JSON.stringify(order),
+                mode: "no-cors"
+            }
+        )
+
+        fetch(request)
+            .then(resolve => {
+                console.log(resolve.status)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 }
+
 enum PaymentMethodType {
     LIQ_PAY = "LIQ_PAY",
     CASH = "CASH",
@@ -23,7 +42,7 @@ interface Order {
     email: string | null
     deliveryMethodType: DeliveryMethodType
     paymentMethodType: PaymentMethodType
-    file: File  | null
+    file: File | null
 }
 
 document.getElementById("create_order_btn")?.addEventListener('click', function (e) {
@@ -44,11 +63,15 @@ document.getElementById("create_order_btn")?.addEventListener('click', function 
         lastName: last_name,
         phone: phone,
         email: email,
-        deliveryMethodType: DeliveryMethodType[(Number)delivery],
-        paymentMethodType: PaymentMethodTypep[payment],
+        deliveryMethodType: DeliveryMethodType[delivery as keyof typeof DeliveryMethodType],
+        paymentMethodType: PaymentMethodType[payment as keyof typeof PaymentMethodType],
         file: files.item(0)
     }
 
+
+
     TestOrder.createDefaultOrder(order)
 })
+
+
 

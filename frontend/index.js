@@ -2,6 +2,19 @@
 var _a;
 class TestOrder {
     static createDefaultOrder(order) {
+        let url = new URL("http://127.0.0.1:8080/api/order");
+        let request = new Request(url.toString(), {
+            method: "POST",
+            body: JSON.stringify(order),
+            mode: "no-cors"
+        });
+        fetch(request)
+            .then(resolve => {
+            console.log(resolve.status);
+        })
+            .catch(error => {
+            console.log(error);
+        });
     }
 }
 var PaymentMethodType;
@@ -34,8 +47,8 @@ var DeliveryMethodType;
         lastName: last_name,
         phone: phone,
         email: email,
-        deliveryMethodType: DeliveryMethodType[(Number)], delivery,
-        paymentMethodType: PaymentMethodTypep[payment],
+        deliveryMethodType: DeliveryMethodType[delivery],
+        paymentMethodType: PaymentMethodType[payment],
         file: files.item(0)
     };
     TestOrder.createDefaultOrder(order);
