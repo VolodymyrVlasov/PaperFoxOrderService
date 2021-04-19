@@ -1,5 +1,6 @@
 package com.paperfox.order.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paperfox.order.models.*;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,9 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -29,7 +28,8 @@ import java.util.Map;
 public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
-    private Map<String, Order> orderList = new HashMap<>();
+    private List<Order> orderList = new ArrayList<>();
+
     @Autowired
     private OrderService orderService;
 
@@ -37,15 +37,14 @@ public class OrderController {
     @RequestMapping(value = "/api/order", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     private void createOrder(@RequestBody Order order) throws JSONException {
         logger.info("Create Order: " + order.toString());
-        this.orderList.put(String.valueOf(order.getOrderID()), order);
+        this.orderList.add(order);
     }
 
     @CrossOrigin(value = "http://localhost:64644", methods = RequestMethod.GET)
     @GetMapping("/api/order")
-    public Map<String, Order> getOrder() {
+    public List<Order> getOrder() {
         return this.orderList;
     }
-
 }
 
 @Component
