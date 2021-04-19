@@ -2,8 +2,8 @@
 var _a, _b;
 class TestOrder {
     static createDefaultOrder(order) {
-        console.log(order);
-        let url = new URL("http://192.168.1.5:8080/api/order");
+        // console.log(order)
+        let url = new URL("http://62.244.50.147:8080/api/order");
         let request = new Request(url.toString(), {
             method: "POST",
             body: JSON.stringify(order),
@@ -16,14 +16,33 @@ class TestOrder {
             .catch(error => console.log(error));
     }
     static getOrder() {
-        let url = new URL("http://192.168.1.5:8080/api/order");
+        let url = new URL("http://62.244.50.147:8080/api/order"); // "http://62.244.50.147/api/order"
         let request = new Request(url.toString(), {
             method: "GET",
         });
         fetch(request)
             .then(response => response.json())
-            .then(response => console.log(response))
+            .then(response => this.renderOrderList(response))
             .catch(error => console.log(error));
+    }
+    static renderOrderList(orderList) {
+        let rootList = document.getElementById('order_cnt');
+        orderList.forEach((order) => {
+            if (rootList != null) {
+                rootList.innerHTML += `
+                      <div class="order_row">
+                        <span>${new Date(order.timeStamp).getDay()}</span>
+         
+                        <span>${order.customer.firstName} ${order.customer.lastName}</span>
+                        <span>${order.customer.phoneNumber}</span>
+                        <span>${order.customer.email}</span>
+                        <span>${order.deliveryMethodType}</span>
+                        <span>${order.paymentMethodType}</span>
+                        <span>${order.orderStatusType}</span>
+                    </div>
+            `;
+            }
+        });
     }
 }
 var PaymentMethodType;
@@ -33,6 +52,14 @@ var PaymentMethodType;
     PaymentMethodType["IBAN"] = "IBAN";
     PaymentMethodType["CARD"] = "CARD";
 })(PaymentMethodType || (PaymentMethodType = {}));
+var OrderStatusType;
+(function (OrderStatusType) {
+    OrderStatusType["NEW"] = "NEW";
+    OrderStatusType["IN_PROGRESS"] = "IN_PROGRESS";
+    OrderStatusType["NEED_CHANGE"] = "NEED_CHANGE";
+    OrderStatusType["COMPLETED"] = "COMPLETED";
+    OrderStatusType["CANCELED"] = "CANCELED";
+})(OrderStatusType || (OrderStatusType = {}));
 var DeliveryMethodType;
 (function (DeliveryMethodType) {
     DeliveryMethodType["PICK_UP"] = "PICK_UP";
@@ -40,7 +67,7 @@ var DeliveryMethodType;
     DeliveryMethodType["UKLON"] = "UKLON";
 })(DeliveryMethodType || (DeliveryMethodType = {}));
 (_a = document.getElementById("create_order_btn")) === null || _a === void 0 ? void 0 : _a.addEventListener('click', function (e) {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a, _b, _c, _d, _e, _f;
     e.preventDefault();
     const name = (_a = document.getElementById("first_name")) === null || _a === void 0 ? void 0 : _a.value;
     const last_name = (_b = document.getElementById("last_name")) === null || _b === void 0 ? void 0 : _b.value;
@@ -48,12 +75,6 @@ var DeliveryMethodType;
     const email = (_d = document.getElementById("email")) === null || _d === void 0 ? void 0 : _d.value;
     const delivery = (_e = document.getElementById("delivery_method")) === null || _e === void 0 ? void 0 : _e.value;
     const payment = (_f = document.getElementById("payment_method")) === null || _f === void 0 ? void 0 : _f.value;
-    //
-    let files = (_g = document.getElementById("file")) === null || _g === void 0 ? void 0 : _g.files;
-    //
-    if (files == null)
-        return;
-    console.log(name);
     let order = {
         customer: {
             firstName: name,
@@ -61,9 +82,11 @@ var DeliveryMethodType;
             phoneNumber: phone,
             email: email,
         },
+        timeStamp: new Date,
+        // orderID: null,
+        orderStatusType: OrderStatusType.NEW,
         deliveryMethodType: DeliveryMethodType[delivery],
         paymentMethodType: PaymentMethodType[payment],
-        file: files.item(0),
     };
     TestOrder.createDefaultOrder(order);
 });

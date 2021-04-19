@@ -1,7 +1,7 @@
 class TestOrder {
     public static createDefaultOrder(order: Order) {
-        console.log(order)
-        let url: URL = new URL("http://192.168.1.5:8080/api/order")
+        // console.log(order)
+        let url: URL = new URL("http://62.244.50.147:8080/api/order")
         let request: Request = new Request(
             url.toString(),
             {
@@ -19,7 +19,7 @@ class TestOrder {
     }
 
     public static getOrder() {
-        let url: URL = new URL("http://192.168.1.5:8080/api/order")
+        let url: URL = new URL("http://62.244.50.147:8080/api/order") // "http://62.244.50.147/api/order"
         let request: Request = new Request(
             url.toString(),
             {
@@ -29,16 +29,46 @@ class TestOrder {
 
         fetch(request)
             .then(response => response.json())
-            .then(response => console.log(response))
+            .then(response => this.renderOrderList(response))
             .catch(error => console.log(error))
     }
+
+    static renderOrderList(orderList: Array<Order>) {
+        let rootList = document.getElementById('order_cnt')
+
+        orderList.forEach((order) => {
+            if (rootList != null) {
+                rootList.innerHTML += `
+                      <div class="order_row">
+                        <span>${new Date(order.timeStamp).getDay()}</span>
+         
+                        <span>${order.customer.firstName} ${order.customer.lastName}</span>
+                        <span>${order.customer.phoneNumber}</span>
+                        <span>${order.customer.email}</span>
+                        <span>${order.deliveryMethodType}</span>
+                        <span>${order.paymentMethodType}</span>
+                        <span>${order.orderStatusType}</span>
+                    </div>
+            `
+            }
+        })
+    }
 }
+
 
 enum PaymentMethodType {
     LIQ_PAY = "LIQ_PAY",
     CASH = "CASH",
     IBAN = "IBAN",
     CARD = "CARD"
+}
+
+enum OrderStatusType {
+    NEW = "NEW",
+    IN_PROGRESS = "IN_PROGRESS",
+    NEED_CHANGE = "NEED_CHANGE",
+    COMPLETED = "COMPLETED",
+    CANCELED = "CANCELED"
 }
 
 enum DeliveryMethodType {
@@ -55,11 +85,13 @@ interface Customer {
 }
 
 interface Order {
+    timeStamp: Date
+
     customer: Customer
     deliveryMethodType: DeliveryMethodType
     paymentMethodType: PaymentMethodType
-    file: File | null,
-
+    orderStatusType: OrderStatusType
+    // orderID: string | null
 }
 
 document.getElementById("create_order_btn")?.addEventListener('click', function (e) {
@@ -70,23 +102,20 @@ document.getElementById("create_order_btn")?.addEventListener('click', function 
     const email = (<HTMLInputElement>document.getElementById("email"))?.value
     const delivery = (<HTMLInputElement>document.getElementById("delivery_method"))?.value
     const payment = (<HTMLInputElement>document.getElementById("payment_method"))?.value
-    //
-    let files = (<HTMLInputElement>document.getElementById("file"))?.files
-    //
-    if (files == null) return
-
-    console.log(name)
 
     let order: Order = {
         customer: {
+
             firstName: name,
             lastName: last_name,
             phoneNumber: phone,
             email: email,
         },
+        timeStamp: new Date,
+        // orderID: null,
+        orderStatusType: OrderStatusType.NEW,
         deliveryMethodType: DeliveryMethodType[delivery as keyof typeof DeliveryMethodType],
         paymentMethodType: PaymentMethodType[payment as keyof typeof PaymentMethodType],
-        file: files.item(0),
     }
 
     TestOrder.createDefaultOrder(order)

@@ -1,0 +1,28 @@
+.title{
+    font-weight: bold;
+    background: #FAFAFA;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+.order_row{
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.order_row>span{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    text-align: center;
+
+}

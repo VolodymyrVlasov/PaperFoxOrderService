@@ -55,9 +55,9 @@ public class Order  { //implements Validator
 //    }
 
 
-    public UUID getOrderUUID() {
-        return orderUUID;
-    }
+//    public UUID getOrderUUID() {
+//        return orderUUID;
+//    }
 
     public long getOrderID() {
         return orderID;

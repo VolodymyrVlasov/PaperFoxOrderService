@@ -17,9 +17,9 @@ public class Customer {
         this.email = email;
     }
 
-    public UUID getCustomerUUID() {
-        return customerUUID;
-    }
+//    public UUID getCustomerUUID() {
+//        return customerUUID;
+//    }
 
     public long getChatID() {
         return chatID;

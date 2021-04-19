@@ -33,14 +33,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @CrossOrigin(value = "http://localhost:53532")
+//    @CrossOrigin(value = "http://localhost:53532")
     @RequestMapping(value = "/api/order", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    private void createOrder(@RequestBody Order order) throws JSONException {
+    private void createOrder(@RequestBody Order order) {
         logger.info("Create Order: " + order.toString());
         this.orderList.add(order);
     }
 
-    @CrossOrigin(value = "http://localhost:64644", methods = RequestMethod.GET)
+//    @CrossOrigin(value = "http://localhost:64644", methods = RequestMethod.GET)
     @GetMapping("/api/order")
     public List<Order> getOrder() {
         return this.orderList;

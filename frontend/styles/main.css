@@ -1,0 +1,60 @@
+* {
+    font-family: 'Inter', sans-serif;
+    color: gray;
+}
+
+main{
+    width: 100%;
+}
+section {
+    max-width: 1400px;
+    margin:  50px auto;
+}
+
+.card {
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 8px;
+    background: #ECECEC;
+    box-shadow: 4px 4px 5px 2px rgba(0,0,0,0.1);
+
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    width: 190px;
+}
+
+.col > input, select {
+    height: 30px;
+    border: none;
+    border-radius: 7px;
+    color: gray;
+    padding-left: 10px;
+}
+
+label{
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+.btn {
+    border: 1px solid gray;
+    border-radius: 7px;
+    padding: 15px 40px;
+    margin: 0 auto;
+    background: #fff;
+}
+
+.btn:hover{
+    background: gray;
+    color: white;
+}
