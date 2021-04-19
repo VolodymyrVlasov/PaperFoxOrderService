@@ -1,24 +1,29 @@
 "use strict";
-var _a;
+var _a, _b;
 class TestOrder {
     static createDefaultOrder(order) {
-        console.log(JSON.stringify(order));
-        let url = new URL("http://127.0.0.1:8080/api/order");
+        console.log(order);
+        let url = new URL("http://192.168.1.5:8080/api/order");
         let request = new Request(url.toString(), {
             method: "POST",
             body: JSON.stringify(order),
-            // mode: "no-cors",
             headers: {
                 "Content-Type": "application/json"
             }
         });
         fetch(request)
-            .then(resolve => {
-            console.log(resolve.status);
-        })
-            .catch(error => {
-            console.log(error);
+            .then(response => console.log(response.status))
+            .catch(error => console.log(error));
+    }
+    static getOrder() {
+        let url = new URL("http://192.168.1.5:8080/api/order");
+        let request = new Request(url.toString(), {
+            method: "GET",
         });
+        fetch(request)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
 }
 var PaymentMethodType;
@@ -43,9 +48,12 @@ var DeliveryMethodType;
     const email = (_d = document.getElementById("email")) === null || _d === void 0 ? void 0 : _d.value;
     const delivery = (_e = document.getElementById("delivery_method")) === null || _e === void 0 ? void 0 : _e.value;
     const payment = (_f = document.getElementById("payment_method")) === null || _f === void 0 ? void 0 : _f.value;
+    //
     let files = (_g = document.getElementById("file")) === null || _g === void 0 ? void 0 : _g.files;
+    //
     if (files == null)
         return;
+    console.log(name);
     let order = {
         customer: {
             firstName: name,
@@ -55,8 +63,11 @@ var DeliveryMethodType;
         },
         deliveryMethodType: DeliveryMethodType[delivery],
         paymentMethodType: PaymentMethodType[payment],
-        file: files.item(0)
+        file: files.item(0),
     };
-    console.log(order);
     TestOrder.createDefaultOrder(order);
+});
+(_b = document.getElementById('get_order_btn')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', function (e) {
+    e.preventDefault();
+    TestOrder.getOrder();
 });

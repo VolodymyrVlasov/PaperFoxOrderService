@@ -10,9 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -20,26 +29,37 @@ import java.util.GregorianCalendar;
 public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
-
+    private Map<String, Order> orderList = new HashMap<>();
     @Autowired
     private OrderService orderService;
 
     @CrossOrigin(value = "http://localhost:53532")
     @RequestMapping(value = "/api/order", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     private void createOrder(@RequestBody Order order) throws JSONException {
-//        JSONObject jsonObject = new JSONObject(order);
-//        Order order1 = new Order(
-//                new Customer(
-//                        jsonObject.get("name").toString(),
-//                        jsonObject.get("lastName").toString(),
-//                        jsonObject.get("phone").toString(),
-//                        jsonObject.get("email").toString()),
-//                DeliveryMethodType.valueOf(jsonObject.get("deliveryMethodType").toString()),
-//                PaymentMethodType.valueOf(jsonObject.get("paymentMethodType").toString()),
-//                OrderStatusType.NEW,
-//                new GregorianCalendar()
-//        );
-
         logger.info("Create Order: " + order.toString());
+        this.orderList.put(String.valueOf(order.getOrderID()), order);
+    }
+
+    @CrossOrigin(value = "http://localhost:64644", methods = RequestMethod.GET)
+    @GetMapping("/api/order")
+    public Map<String, Order> getOrder() {
+        return this.orderList;
+    }
+
+}
+
+@Component
+class CorsFilter extends OncePerRequestFilter {
+
+    @Override
+    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
+                                    final FilterChain filterChain) throws ServletException, IOException {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, PATCH, HEAD");
+        response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials");
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+        response.addIntHeader("Access-Control-Max-Age", 10);
+        filterChain.doFilter(request, response);
     }
 }

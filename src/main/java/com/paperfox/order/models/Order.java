@@ -1,14 +1,6 @@
 package com.paperfox.order.models;
-
-import com.paperfox.order.controllers.OrderController;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Order  { //implements Validator
     private UUID orderUUID;
@@ -23,12 +15,13 @@ public class Order  { //implements Validator
     private static final List<String> fileTypes = Arrays.asList(
             "application/pdf", "image/png", "image/jpg", "image/jpeg");
 
-    public Order(Customer customer, DeliveryMethodType deliveryMethodType, PaymentMethodType paymentMethodType, OrderStatusType orderStatusType, GregorianCalendar timeStamp) {
+    public Order(Customer customer, DeliveryMethodType deliveryMethodType, PaymentMethodType paymentMethodType, OrderStatusType orderStatusType) {
         this.customer = customer;
         this.deliveryMethodType = deliveryMethodType;
         this.paymentMethodType = paymentMethodType;
         this.orderStatusType = orderStatusType;
-        this.timeStamp = timeStamp;
+        this.timeStamp = new GregorianCalendar();
+        this.orderID = new Random().nextInt(500);
     }
 
     //    @Override
@@ -61,6 +54,43 @@ public class Order  { //implements Validator
 //        }
 //    }
 
+
+    public UUID getOrderUUID() {
+        return orderUUID;
+    }
+
+    public long getOrderID() {
+        return orderID;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public DeliveryMethodType getDeliveryMethodType() {
+        return deliveryMethodType;
+    }
+
+    public PaymentMethodType getPaymentMethodType() {
+        return paymentMethodType;
+    }
+
+    public OrderStatusType getOrderStatusType() {
+        return orderStatusType;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public GregorianCalendar getTimeStamp() {
+        return timeStamp;
+    }
+
+    public static List<String> getFileTypes() {
+        return fileTypes;
+    }
+
     @Override
     public String toString() {
         return "\nOrder{" +
@@ -71,7 +101,7 @@ public class Order  { //implements Validator
                 ",\n\tpaymentMethodType=" + paymentMethodType +
                 ",\n\torderStatusType=" + orderStatusType +
                 ",\n\tfile=" + file +
-                ",\n\ttimeStamp=" + timeStamp +
+                ",\n\ttimeStamp=" + timeStamp.getTime() +
                 '}';
     }
 }

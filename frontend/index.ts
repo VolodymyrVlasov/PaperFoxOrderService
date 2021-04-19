@@ -1,15 +1,12 @@
 class TestOrder {
     public static createDefaultOrder(order: Order) {
-
-        console.log(JSON.stringify(order))
-        let url: URL = new URL("http://127.0.0.1:8080/api/order")
-
+        console.log(order)
+        let url: URL = new URL("http://192.168.1.5:8080/api/order")
         let request: Request = new Request(
             url.toString(),
             {
                 method: "POST",
                 body: JSON.stringify(order),
-                // mode: "no-cors",
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -17,12 +14,23 @@ class TestOrder {
         )
 
         fetch(request)
-            .then(resolve => {
-                console.log(resolve.status)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+            .then(response => console.log(response.status))
+            .catch(error => console.log(error))
+    }
+
+    public static getOrder() {
+        let url: URL = new URL("http://192.168.1.5:8080/api/order")
+        let request: Request = new Request(
+            url.toString(),
+            {
+                method: "GET",
+            }
+        )
+
+        fetch(request)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(error => console.log(error))
     }
 }
 
@@ -39,7 +47,7 @@ enum DeliveryMethodType {
     UKLON = "UKLON"
 }
 
-interface Customer{
+interface Customer {
     firstName: string | null
     lastName: string | null
     phoneNumber: string | null
@@ -50,7 +58,8 @@ interface Order {
     customer: Customer
     deliveryMethodType: DeliveryMethodType
     paymentMethodType: PaymentMethodType
-    file: File | null
+    file: File | null,
+
 }
 
 document.getElementById("create_order_btn")?.addEventListener('click', function (e) {
@@ -61,10 +70,12 @@ document.getElementById("create_order_btn")?.addEventListener('click', function 
     const email = (<HTMLInputElement>document.getElementById("email"))?.value
     const delivery = (<HTMLInputElement>document.getElementById("delivery_method"))?.value
     const payment = (<HTMLInputElement>document.getElementById("payment_method"))?.value
-
+    //
     let files = (<HTMLInputElement>document.getElementById("file"))?.files
-
+    //
     if (files == null) return
+
+    console.log(name)
 
     let order: Order = {
         customer: {
@@ -75,14 +86,17 @@ document.getElementById("create_order_btn")?.addEventListener('click', function 
         },
         deliveryMethodType: DeliveryMethodType[delivery as keyof typeof DeliveryMethodType],
         paymentMethodType: PaymentMethodType[payment as keyof typeof PaymentMethodType],
-        file: files.item(0)
+        file: files.item(0),
     }
-
-
-    console.log(order)
 
     TestOrder.createDefaultOrder(order)
 })
+
+document.getElementById('get_order_btn')?.addEventListener('click', function (e) {
+    e.preventDefault()
+    TestOrder.getOrder()
+})
+
 
 
 
