@@ -14,7 +14,7 @@ class TestOrder {
         )
 
         fetch(request)
-            .then(response => console.log(response.status))
+            .then(response => console.log(response.text()))
             .catch(error => console.log(error))
     }
 
@@ -30,6 +30,25 @@ class TestOrder {
         fetch(request)
             .then(response => response.json())
             .then(response => this.renderOrderList(response))
+            .catch(error => console.log(error))
+    }
+
+    public static calcRoundSticker(sticker: PrintingProduct) {
+        console.log(sticker)
+        let url: URL = new URL("http://62.244.50.147:8080/api/calc")
+        let request: Request = new Request(
+            url.toString(),
+            {
+                method: "POST",
+                body: JSON.stringify(sticker),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        )
+
+        fetch(request)
+            .then(response => console.log(response.status))
             .catch(error => console.log(error))
     }
 
@@ -53,6 +72,26 @@ class TestOrder {
             }
         })
     }
+}
+
+interface Size {
+    diameter: number
+}
+
+enum MaterialType {
+    RAFLATAC = "RAFLATAC",
+    RAFLATAC_LAMINATED = "RAFLATAC_LAMINATED",
+    RAFLATAC_PET = "RAFLATAC_PET",
+    RITRAMA_LAMINATED = "RITRAMA_LAMINATED",
+    RITRAMA_TRANSPARENT = "RITRAMA_TRANSPARENT",
+    UPM = "UPM",
+    COLOR_COPY = "COLOR_COPY"
+}
+
+interface PrintingProduct {
+    quantity: number,
+    materialType: MaterialType,
+    size: Size
 }
 
 
@@ -124,6 +163,18 @@ document.getElementById("create_order_btn")?.addEventListener('click', function 
 document.getElementById('get_order_btn')?.addEventListener('click', function (e) {
     e.preventDefault()
     TestOrder.getOrder()
+})
+
+document.getElementById('calc_btn')?.addEventListener('click', function () {
+    let roundSticker: PrintingProduct = {
+        quantity: 105,
+        materialType: MaterialType.RAFLATAC,
+        size: {
+            diameter: 50
+        }
+    }
+
+    TestOrder.calcRoundSticker(roundSticker)
 })
 
 

@@ -1,4 +1,4 @@
-package com.paperfox.order.models;
+package com.paperfox.order.models.types;
 
 public enum OrderStatusType {
     NEW,

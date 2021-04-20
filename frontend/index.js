@@ -1,5 +1,5 @@
 "use strict";
-var _a, _b;
+var _a, _b, _c;
 class TestOrder {
     static createDefaultOrder(order) {
         // console.log(order)
@@ -12,7 +12,7 @@ class TestOrder {
             }
         });
         fetch(request)
-            .then(response => console.log(response.status))
+            .then(response => console.log(response.text()))
             .catch(error => console.log(error));
     }
     static getOrder() {
@@ -23,6 +23,20 @@ class TestOrder {
         fetch(request)
             .then(response => response.json())
             .then(response => this.renderOrderList(response))
+            .catch(error => console.log(error));
+    }
+    static calcRoundSticker(sticker) {
+        console.log(sticker);
+        let url = new URL("http://62.244.50.147:8080/api/calc");
+        let request = new Request(url.toString(), {
+            method: "POST",
+            body: JSON.stringify(sticker),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        fetch(request)
+            .then(response => console.log(response.status))
             .catch(error => console.log(error));
     }
     static renderOrderList(orderList) {
@@ -45,6 +59,16 @@ class TestOrder {
         });
     }
 }
+var MaterialType;
+(function (MaterialType) {
+    MaterialType["RAFLATAC"] = "RAFLATAC";
+    MaterialType["RAFLATAC_LAMINATED"] = "RAFLATAC_LAMINATED";
+    MaterialType["RAFLATAC_PET"] = "RAFLATAC_PET";
+    MaterialType["RITRAMA_LAMINATED"] = "RITRAMA_LAMINATED";
+    MaterialType["RITRAMA_TRANSPARENT"] = "RITRAMA_TRANSPARENT";
+    MaterialType["UPM"] = "UPM";
+    MaterialType["COLOR_COPY"] = "COLOR_COPY";
+})(MaterialType || (MaterialType = {}));
 var PaymentMethodType;
 (function (PaymentMethodType) {
     PaymentMethodType["LIQ_PAY"] = "LIQ_PAY";
@@ -93,4 +117,14 @@ var DeliveryMethodType;
 (_b = document.getElementById('get_order_btn')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', function (e) {
     e.preventDefault();
     TestOrder.getOrder();
+});
+(_c = document.getElementById('calc_btn')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', function () {
+    let roundSticker = {
+        quantity: 105,
+        materialType: MaterialType.RAFLATAC,
+        size: {
+            diameter: 50
+        }
+    };
+    TestOrder.calcRoundSticker(roundSticker);
 });

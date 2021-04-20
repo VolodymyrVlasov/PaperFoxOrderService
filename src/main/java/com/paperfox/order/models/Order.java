@@ -1,4 +1,7 @@
 package com.paperfox.order.models;
+import com.paperfox.order.models.types.DeliveryMethodType;
+import com.paperfox.order.models.types.OrderStatusType;
+import com.paperfox.order.models.types.PaymentMethodType;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
 
