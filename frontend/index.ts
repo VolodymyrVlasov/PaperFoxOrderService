@@ -14,7 +14,7 @@ class TestOrder {
         )
 
         fetch(request)
-            .then(response => console.log(response.text()))
+            .then(response => console.log(response.status))
             .catch(error => console.log(error))
     }
 
@@ -33,9 +33,9 @@ class TestOrder {
             .catch(error => console.log(error))
     }
 
-    public static calcRoundSticker(sticker: PrintingProduct) {
-        console.log(sticker)
-        let url: URL = new URL("http://62.244.50.147:8080/api/calc")
+    public static async calcRoundSticker(sticker: PrintingProduct) {
+        // console.log(sticker)
+        const url: URL = new URL("http://62.244.50.147:8080/api/calc")
         let request: Request = new Request(
             url.toString(),
             {
@@ -47,9 +47,11 @@ class TestOrder {
             }
         )
 
-        fetch(request)
-            .then(response => console.log(response.status))
+        await fetch(request)
+            .then(response => response.json())
+            .then(response => console.log(response))
             .catch(error => console.log(error))
+
     }
 
     static renderOrderList(orderList: Array<Order>) {
@@ -75,7 +77,10 @@ class TestOrder {
 }
 
 interface Size {
-    diameter: number
+    diameter: number | null
+    width: number | null
+    height: number | null
+    borderRadius: number | null
 }
 
 enum MaterialType {
@@ -91,7 +96,8 @@ enum MaterialType {
 interface PrintingProduct {
     quantity: number,
     materialType: MaterialType,
-    size: Size
+    size: Size | null,
+    cuttingType: CuttingType
 }
 
 
@@ -114,6 +120,12 @@ enum DeliveryMethodType {
     PICK_UP = "PICK_UP",
     NOVA_POSHTA = "NOVA_POSHTA",
     UKLON = "UKLON"
+}
+
+enum CuttingType {
+    HAND_CUTTING = "HAND_CUTTING",
+    PLOTTER_CUTTING = "PLOTTER_CUTTING",
+    THROUGH_PLOTTER_CUTTING = "THROUGH_PLOTTER_CUTTING"
 }
 
 interface Customer {
@@ -144,7 +156,6 @@ document.getElementById("create_order_btn")?.addEventListener('click', function 
 
     let order: Order = {
         customer: {
-
             firstName: name,
             lastName: last_name,
             phoneNumber: phone,
@@ -166,13 +177,18 @@ document.getElementById('get_order_btn')?.addEventListener('click', function (e)
 })
 
 document.getElementById('calc_btn')?.addEventListener('click', function () {
-    let roundSticker: PrintingProduct = {
-        quantity: 105,
+    let roundSticker: PrintingProduct;
+    roundSticker = {
+        quantity: 100,
         materialType: MaterialType.RAFLATAC,
+        cuttingType: CuttingType.PLOTTER_CUTTING,
         size: {
-            diameter: 50
+            diameter: 50,
+            // width: 0,
+            // height: 0,
+            // borderRadius: 0
         }
-    }
+    };
 
     TestOrder.calcRoundSticker(roundSticker)
 })

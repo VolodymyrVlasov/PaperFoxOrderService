@@ -19,9 +19,8 @@ public class PriceCalculatorController {
     private PriceCalculatorService calculatorService;
 
     @RequestMapping(value = "/api/calc", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    private PrintingProduct createOrder(@RequestBody PrintingProduct product) {
+    private PrintingProduct calcProduct(@RequestBody PrintingProduct product) {
         logger.info("Create price calculation request: " + product);
-        calculatorService.calculate(product);
         return calculatorService.calculate(product);
     }
 }

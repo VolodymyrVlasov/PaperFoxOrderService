@@ -1,21 +1,40 @@
 package com.paperfox.order.models.products;
 
+import com.paperfox.order.models.ProductSize;
 import com.paperfox.order.models.Size;
+import com.paperfox.order.models.types.CuttingType;
 import com.paperfox.order.models.types.MaterialType;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public abstract class PrintingProduct {
-    private Size size;
-    private int quantity;
+public class PrintingProduct {
+    // todo ProductType enum
+    private ProductSize size;
+    private double quantity;
     private double totalPrice;
     private MaterialType materialType;
     private double cutPrice;
     private double printPrice;
+    private CuttingType cuttingType;
 
-    public Size getSize() {
+    public PrintingProduct(ProductSize size, double quantity, double totalPrice, MaterialType materialType, double cutPrice, double printPrice, CuttingType cuttingType) {
+        this.size = size;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
+        this.materialType = materialType;
+        this.cutPrice = cutPrice;
+        this.printPrice = printPrice;
+        this.cuttingType = cuttingType;
+    }
+
+    public ProductSize getSize() {
         return size;
     }
 
-    public int getQuantity() {
+    public CuttingType getCuttingType() {
+        return cuttingType;
+    }
+
+    public double getQuantity() {
         return quantity;
     }
 
@@ -53,5 +72,17 @@ public abstract class PrintingProduct {
 
     public void setPrintPrice(double printPrice) {
         this.printPrice = printPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "\nPrintingProduct{" +
+                "\nsize=" + size +
+                ", \nquantity=" + quantity +
+                ", \ntotalPrice=" + totalPrice +
+                ", \nmaterialType=" + materialType +
+                ", \ncutPrice=" + cutPrice +
+                ", \nprintPrice=" + printPrice +
+                "\n}";
     }
 }

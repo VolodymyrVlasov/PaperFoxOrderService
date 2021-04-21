@@ -1,0 +1,29 @@
+input, select {
+    height: 50px;
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 7px;
+    color: gray;
+    padding-left: 10px;
+    box-sizing: border-box;
+    font-size: 18px;
+    outline: none;
+
+}
+
+.input_width {
+    min-width: 380px;
+}
+
+.form_width {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.form_width > div {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    margin-top: 15px;
+
+}
