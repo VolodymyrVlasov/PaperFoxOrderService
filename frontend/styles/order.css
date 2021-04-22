@@ -1,4 +1,4 @@
-input, select {
+.order_input_select {
     height: 50px;
     width: 100%;
     border: 1px solid gray;

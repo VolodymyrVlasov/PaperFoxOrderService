@@ -184,9 +184,9 @@ document.getElementById('calc_btn')?.addEventListener('click', function () {
         cuttingType: CuttingType.PLOTTER_CUTTING,
         size: {
             diameter: 50,
-            // width: 0,
-            // height: 0,
-            // borderRadius: 0
+            width: 0,
+            height: 0,
+            borderRadius: 0
         }
     };
 

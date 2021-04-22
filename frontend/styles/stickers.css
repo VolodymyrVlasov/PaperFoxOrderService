@@ -1,0 +1,141 @@
+.divider {
+    height: 30px;
+    width: 30px;
+}
+
+
+.select_shape_cnt {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    justify-content: space-between;
+}
+
+.label_cnt {
+    display: flex;
+    flex-direction: column;
+}
+
+.label_cnt > label {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.sticker_bnt {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    color: gray;
+    font-size: 18px;
+    border: 0;
+    /*border: 1px solid gray;*/
+    box-sizing: border-box;
+    /*margin-right: -1px;*/
+    background: white;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+}
+
+.sticker_bnt:hover {
+    transform: scale(1.1);
+
+}
+
+.sticker_root_cnt {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /*flex-wrap: wrap;*/
+    /*border: 1px solid gray;*/
+    height: 170px;
+    margin-top: -1px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+
+}
+
+.sticker_select_cnt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 2;
+    padding-right: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+}
+
+.sticker_input_cnt {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    justify-content: space-between;
+    padding: 50px 80px 50px 10px;
+}
+
+.sticker_preview_cnt {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    /*flex: 1;*/
+}
+
+.sticker_preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #3c3c3c;
+    border-radius: 50%;
+    height: 170px;
+    width: 170px;
+    position: relative;
+}
+
+.sticker_preview_arrow {
+    width: 170px;
+    height: 10px;
+    background: url("../img/arrow.png") no-repeat;
+    transform: rotate(135deg);
+}
+
+.sticker_preview_label {
+    display: block;
+    width: 100%;
+    text-align: center;
+    z-index: 999;
+    position: absolute;
+    font-size: 24px;
+    color: #3c3c3c;
+}
+
+.sticker_calculate_result {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.sticker_result {
+    margin-bottom: 20px;
+}
+
+.file_input {
+    border: 0;
+    margin: 0;
+    /*padding: 0;*/
+}
+
+.count_label {
+    height: 20px;
+    padding: 7px 15px;
+    border-radius: 0px 8px 8px 8px;
+    background: #f0f0f0;
+    color: #3c3c3c;
+    margin-right: 10px;
+    margin-left: -10px;
+}
+
