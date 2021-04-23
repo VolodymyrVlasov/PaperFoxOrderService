@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const getInitialParams = 'http://62.244.50.147:8080/api/stickers/getInitialParams?type=round';
+const getInitialParams = 'http://62.244.50.147:8080/api/stickers/getInitialParams?type=SELF_ADHESIVE';
 class OrderServiceApi {
     static restGetRequest() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -40,6 +40,7 @@ OrderServiceApi.restGetRequest()
 })
     .catch(error => console.log(error));
 function renderOptions(response) {
+    console.log(response);
     const materialType = response.materialType;
     const cuttingType = response.cuttingType;
     let materialTypeSelect = document.getElementById('sticker_material');
@@ -54,12 +55,12 @@ function renderOptions(response) {
         option.value = value.type;
         materialTypeSelect.appendChild(option);
     });
-    new Map(Object.entries(materialType)).forEach(function (value, key) {
-        let option = document.createElement('option');
-        option.innerText = value;
-        option.value = key;
-        materialTypeSelect.appendChild(option);
-    });
+    // new Map(Object.entries(materialType)).forEach(function (value, key) {
+    //     let option = document.createElement('option')
+    //     option.innerText = value
+    //     option.value = key
+    //     materialTypeSelect.appendChild(option)
+    // });
     new Map(Object.entries(cuttingType)).forEach(function (value, key) {
         let option = document.createElement('option');
         option.innerText = value;
@@ -92,6 +93,7 @@ class OrderForm {
     }
     createProduct() {
         this.roundSticker = {
+            productType: ProductType.STICKER,
             quantity: Number.parseFloat(this.inputCount.value),
             materialType: MaterialType[this.inputMaterialType.value],
             cuttingType: CuttingType[this.inputCutType.value],
@@ -211,6 +213,3 @@ class OrderForm {
     }
 }
 new OrderForm();
-// const getEnumType<T>(keyValue: string) {
-//     return T[keyValue as keyof typeof T]
-// }

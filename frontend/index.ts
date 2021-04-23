@@ -33,27 +33,6 @@ class TestOrder {
             .catch(error => console.log(error))
     }
 
-    public static async calcRoundSticker(sticker: PrintingProduct) {
-        // console.log(sticker)
-        const url: URL = new URL("http://62.244.50.147:8080/api/calc")
-        let request: Request = new Request(
-            url.toString(),
-            {
-                method: "POST",
-                body: JSON.stringify(sticker),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        )
-
-        await fetch(request)
-            .then(response => response.json())
-            .then(response => console.log(response))
-            .catch(error => console.log(error))
-
-    }
-
     static renderOrderList(orderList: Array<Order>) {
         let rootList = document.getElementById('order_cnt')
 
@@ -76,80 +55,6 @@ class TestOrder {
     }
 }
 
-interface Size {
-    diameter?: number
-    width?: number
-    height?: number
-    borderRadius?: number
-}
-
-enum MaterialType {
-    RAFLATAC = "RAFLATAC",
-    RAFLATAC_LAMINATED = "RAFLATAC_LAMINATED",
-    RAFLATAC_PET = "RAFLATAC_PET",
-    RITRAMA_LAMINATED = "RITRAMA_LAMINATED",
-    RITRAMA_TRANSPARENT = "RITRAMA_TRANSPARENT",
-}
-
-interface Material {
-    type: MaterialType;
-    index: number;
-    name: string;
-}
-
-interface PrintingProduct {
-    quantity: number,
-    materialType: MaterialType, // todo: Material[]
-    size: Size | null,
-    cuttingType: CuttingType
-    totalPrice?: number
-}
-
-
-enum PaymentMethodType {
-    LIQ_PAY = "LIQ_PAY",
-    CASH = "CASH",
-    IBAN = "IBAN",
-    CARD = "CARD"
-}
-
-enum OrderStatusType {
-    NEW = "NEW",
-    IN_PROGRESS = "IN_PROGRESS",
-    NEED_CHANGE = "NEED_CHANGE",
-    COMPLETED = "COMPLETED",
-    CANCELED = "CANCELED"
-}
-
-enum DeliveryMethodType {
-    PICK_UP = "PICK_UP",
-    NOVA_POSHTA = "NOVA_POSHTA",
-    UKLON = "UKLON"
-}
-
-enum CuttingType {
-    HAND_CUTTING = "HAND_CUTTING",
-    PLOTTER_CUTTING = "PLOTTER_CUTTING",
-    THROUGH_PLOTTER_CUTTING = "THROUGH_PLOTTER_CUTTING"
-}
-
-interface Customer {
-    firstName: string | null
-    lastName: string | null
-    phoneNumber: string | null
-    email: string | null
-}
-
-interface Order {
-    timeStamp: Date
-
-    customer: Customer
-    deliveryMethodType: DeliveryMethodType
-    paymentMethodType: PaymentMethodType
-    orderStatusType: OrderStatusType
-    // orderID: string | null
-}
-
 document.getElementById("create_order_btn")?.addEventListener('click', function (e) {
     e.preventDefault()
     const name = (<HTMLInputElement>document.getElementById("first_name"))?.value
@@ -167,7 +72,6 @@ document.getElementById("create_order_btn")?.addEventListener('click', function 
             email: email,
         },
         timeStamp: new Date,
-        // orderID: null,
         orderStatusType: OrderStatusType.NEW,
         deliveryMethodType: DeliveryMethodType[delivery as keyof typeof DeliveryMethodType],
         paymentMethodType: PaymentMethodType[payment as keyof typeof PaymentMethodType],
@@ -180,24 +84,4 @@ document.getElementById('get_order_btn')?.addEventListener('click', function (e)
     e.preventDefault()
     TestOrder.getOrder()
 })
-
-document.getElementById('calc_round_sticker')?.addEventListener('click', function () {
-    let roundSticker: PrintingProduct;
-    roundSticker = {
-        quantity: 100,
-        materialType: MaterialType.RAFLATAC,
-        cuttingType: CuttingType.PLOTTER_CUTTING,
-        size: {
-            diameter: 50,
-            width: 0,
-            height: 0,
-            borderRadius: 0
-        }
-    };
-
-    TestOrder.calcRoundSticker(roundSticker)
-})
-
-
-
 

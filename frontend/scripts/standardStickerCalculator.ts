@@ -1,12 +1,8 @@
-const getInitialParams = 'http://62.244.50.147:8080/api/stickers/getInitialParams?type=round'
+
+const getInitialParams = 'http://62.244.50.147:8080/api/stickers/getInitialParams?type=SELF_ADHESIVE'
 
 interface ApiResponse<T> extends Response {
     jsonBody?: T;
-}
-
-interface CalculationParams {
-    materialType: MaterialType
-    cuttingType: CuttingType
 }
 
 class OrderServiceApi {
@@ -39,12 +35,14 @@ OrderServiceApi.restGetRequest<CalculationParams>()
     .catch(error => console.log(error))
 
 function renderOptions(response: CalculationParams): void {
+    console.log(response)
     const materialType: MaterialType = response.materialType
     const cuttingType: CuttingType = response.cuttingType
 
     let materialTypeSelect = <HTMLSelectElement>document.getElementById('sticker_material')
     let cuttingTypeMapSelect = <HTMLSelectElement>document.getElementById('sticker_cutting_type')
     if (cuttingTypeMapSelect == null || materialTypeSelect == null) return
+
     Array<Material>()
         .sort((a: Material, b: Material) => a.index - b.index)
         .forEach(function (value, index) {
@@ -54,12 +52,12 @@ function renderOptions(response: CalculationParams): void {
             materialTypeSelect.appendChild(option)
         });
 
-    new Map(Object.entries(materialType)).forEach(function (value, key) {
-        let option = document.createElement('option')
-        option.innerText = value
-        option.value = key
-        materialTypeSelect.appendChild(option)
-    });
+    // new Map(Object.entries(materialType)).forEach(function (value, key) {
+    //     let option = document.createElement('option')
+    //     option.innerText = value
+    //     option.value = key
+    //     materialTypeSelect.appendChild(option)
+    // });
 
     new Map(Object.entries(cuttingType)).forEach(function (value, key) {
         let option = document.createElement('option')
@@ -113,7 +111,10 @@ class OrderForm {
     }
 
     public createProduct() {
+
+
         this.roundSticker = {
+            productType: ProductType.STICKER,
             quantity: Number.parseFloat(this.inputCount.value),
             materialType: MaterialType[this.inputMaterialType.value as keyof typeof MaterialType], //MaterialType.RAFLATAC,
             cuttingType: CuttingType[this.inputCutType.value as keyof typeof CuttingType],
@@ -165,7 +166,7 @@ class OrderForm {
         }
     }
 
-    public getReadyDate(response: PrintingProduct): string{
+    public getReadyDate(response: PrintingProduct): string {
         let date = new Date();
         let options = {
             month: 'long',
@@ -239,7 +240,3 @@ class OrderForm {
 }
 
 new OrderForm()
-
-// const getEnumType<T>(keyValue: string) {
-//     return T[keyValue as keyof typeof T]
-// }

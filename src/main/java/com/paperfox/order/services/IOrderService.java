@@ -6,5 +6,7 @@ public interface IOrderService {
 
     void create(Order order);
 
+    void edit(Order order);
+
 
 }

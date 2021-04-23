@@ -1,12 +1,15 @@
 package com.paperfox.order.models.params;
 
+import com.paperfox.order.models.Material;
+
+import java.util.List;
 import java.util.Map;
 
 public class CalculatorParams {
     Map<String, String> cuttingType;
-    Map<String, String> materialType;
+    List<Material> materialType;
 
-    public CalculatorParams(Map<String, String> materialType, Map<String, String> cuttingType) {
+    public CalculatorParams(List<Material> materialType, Map<String, String> cuttingType) {
         this.cuttingType = cuttingType;
         this.materialType = materialType;
     }
@@ -15,7 +18,7 @@ public class CalculatorParams {
         return cuttingType;
     }
 
-    public Map<String, String> getMaterialType() {
+    public List<Material> getMaterialType() {
         return materialType;
     }
 }

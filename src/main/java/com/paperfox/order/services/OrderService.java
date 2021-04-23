@@ -10,4 +10,9 @@ public class OrderService implements IOrderService {
     public void create(Order order) {
 
     }
+
+    @Override
+    public void edit(Order order) {
+
+    }
 }

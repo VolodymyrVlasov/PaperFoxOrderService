@@ -1,8 +1,9 @@
 package com.paperfox.order.services.calculation;
 
 import com.paperfox.order.constants.Price;
+import com.paperfox.order.models.Material;
 import com.paperfox.order.models.types.CuttingType;
-import com.paperfox.order.models.types.MaterialType;
+import com.paperfox.order.models.types.MaterialGroups;
 
 public abstract class AbstractCalculator {
     public double calcCutPrice(double cutQuantityPerCirculation, CuttingType cuttingType) {
@@ -19,17 +20,17 @@ public abstract class AbstractCalculator {
         }
     }
 
-    public double calcPrintPrice(double quantitySheetsPerCirculation, MaterialType materialType) {
+    public double calcPrintPrice(double quantitySheetsPerCirculation, Material material) {
         if (quantitySheetsPerCirculation < Price.PRINT_CIRCULATION_INDEX[0]) {
-            return quantitySheetsPerCirculation * materialType.price[0];
+            return quantitySheetsPerCirculation * material.getPrice()[0];
         } else if (quantitySheetsPerCirculation < Price.PRINT_CIRCULATION_INDEX[1]) {
-            return quantitySheetsPerCirculation * materialType.price[1];
+            return quantitySheetsPerCirculation * material.getPrice()[1];
         } else if (quantitySheetsPerCirculation < Price.PRINT_CIRCULATION_INDEX[2]) {
-            return quantitySheetsPerCirculation * materialType.price[2];
+            return quantitySheetsPerCirculation * material.getPrice()[2];
         } else if (quantitySheetsPerCirculation < Price.PRINT_CIRCULATION_INDEX[3]) {
-            return quantitySheetsPerCirculation * materialType.price[4];
+            return quantitySheetsPerCirculation * material.getPrice()[4];
         } else {
-            return quantitySheetsPerCirculation * materialType.price[4];
+            return quantitySheetsPerCirculation * material.getPrice()[4];
         }
     }
 }
