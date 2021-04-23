@@ -1,10 +1,8 @@
 package com.paperfox.order.models.products;
 
 import com.paperfox.order.models.ProductSize;
-import com.paperfox.order.models.Size;
 import com.paperfox.order.models.types.CuttingType;
 import com.paperfox.order.models.types.MaterialType;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class PrintingProduct {
     // todo ProductType enum
@@ -15,8 +13,10 @@ public class PrintingProduct {
     private double cutPrice;
     private double printPrice;
     private CuttingType cuttingType;
+    private double quantityPerSheet;
 
-    public PrintingProduct(ProductSize size, double quantity, double totalPrice, MaterialType materialType, double cutPrice, double printPrice, CuttingType cuttingType) {
+    public PrintingProduct(ProductSize size, double quantity, double totalPrice, MaterialType materialType,
+                           double cutPrice, double printPrice, CuttingType cuttingType, double quantityPerSheet) {
         this.size = size;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
@@ -24,6 +24,11 @@ public class PrintingProduct {
         this.cutPrice = cutPrice;
         this.printPrice = printPrice;
         this.cuttingType = cuttingType;
+        this.quantityPerSheet = quantityPerSheet;
+    }
+
+    public double getQuantityPerSheet() {
+        return quantityPerSheet;
     }
 
     public ProductSize getSize() {
@@ -38,36 +43,36 @@ public class PrintingProduct {
         return quantity;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public MaterialType getMaterialType() {
-        return materialType;
-    }
-
-    public double getCutPrice() {
-        return cutPrice;
-    }
-
-    public double getPrintPrice() {
-        return printPrice;
-    }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
+    public MaterialType getMaterialType() {
+        return materialType;
+    }
+
     public void setMaterialType(MaterialType materialType) {
         this.materialType = materialType;
     }
 
+    public double getCutPrice() {
+        return cutPrice;
+    }
+
     public void setCutPrice(double cutPrice) {
         this.cutPrice = cutPrice;
+    }
+
+    public double getPrintPrice() {
+        return printPrice;
     }
 
     public void setPrintPrice(double printPrice) {
@@ -76,13 +81,15 @@ public class PrintingProduct {
 
     @Override
     public String toString() {
-        return "\nPrintingProduct{" +
-                "\nsize=" + size +
-                ", \nquantity=" + quantity +
-                ", \ntotalPrice=" + totalPrice +
-                ", \nmaterialType=" + materialType +
-                ", \ncutPrice=" + cutPrice +
-                ", \nprintPrice=" + printPrice +
-                "\n}";
+        return "PrintingProduct{" +
+                "size=" + size +
+                ", quantity=" + quantity +
+                ", totalPrice=" + totalPrice +
+                ", materialType=" + materialType +
+                ", cutPrice=" + cutPrice +
+                ", printPrice=" + printPrice +
+                ", cuttingType=" + cuttingType +
+                ", quantityPerSheet=" + quantityPerSheet +
+                '}';
     }
 }

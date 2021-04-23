@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,16 +29,15 @@ public class PriceCalculatorController {
 
     @GetMapping(value = "/api/stickers/getInitialParams")
     private CalculatorParams getInitialParams(@RequestParam String type) {
-//        System.out.println(type);
-        Map<String,String> materialType = new HashMap<>();
-        Map<String,String> cuttingType = new HashMap<>();
+        Map<String, String> materialType = new HashMap<>();
+        Map<String, String> cuttingType = new HashMap<>();
 
         for (MaterialType e : MaterialType.values()) {
             materialType.put(e.name(), e.name);
         }
 
         for (CuttingType e : CuttingType.values()) {
-            cuttingType.put(e.name(), e.name());
+            cuttingType.put(e.name(), e.name);
         }
 
         System.out.println(materialType);

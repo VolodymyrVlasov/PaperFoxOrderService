@@ -1,12 +1,11 @@
 package com.paperfox.order.services.calculation;
 
-import com.paperfox.order.constants.Price;
 import com.paperfox.order.models.ProductSize;
 import com.paperfox.order.models.products.PrintingProduct;
 import com.paperfox.order.models.products.stickers.RoundSticker;
-import com.paperfox.order.models.types.*;
+import com.paperfox.order.models.types.MaterialType;
 
-public class StandardShapeStickerCalculator extends AbstractCalculator implements ICalculator{
+public class StandardShapeStickerCalculator extends AbstractCalculator implements ICalculator {
 
     @Override
     public PrintingProduct calcProduct(PrintingProduct product) {
@@ -56,8 +55,8 @@ public class StandardShapeStickerCalculator extends AbstractCalculator implement
                     (Math.floor(materialType.printableSize.height / (size.width + 2))));
             quantityPerSheet = Math.max(horizontal, vertical);
         } else {
-            double horizontal = (double) ((Math.floor(materialType.printableSize.width / (size.width))) *
-                    (Math.floor(materialType.printableSize.height / (size.height))));
+            double horizontal = (Math.floor(materialType.printableSize.width / (size.width))) *
+                    (Math.floor(materialType.printableSize.height / (size.height)));
             double vertical = ((Math.floor(materialType.printableSize.width / (size.height))) *
                     (Math.floor(materialType.printableSize.height / (size.width))));
             quantityPerSheet = Math.max(horizontal, vertical);

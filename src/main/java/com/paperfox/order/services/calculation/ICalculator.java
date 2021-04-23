@@ -6,7 +6,7 @@ import com.paperfox.order.models.types.MaterialType;
 
 public interface ICalculator {
 
-    PrintingProduct  calcProduct(PrintingProduct product);
+    PrintingProduct calcProduct(PrintingProduct product);
 
     double calculateQuantityPerSheet(MaterialType materialType, ProductSize size);
 }

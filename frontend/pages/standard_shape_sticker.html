@@ -38,34 +38,38 @@
 
 
         <div id="sticker_root_cnt" class="sticker_root_cnt">
+
+            <div class="sticker_input_cnt">
+                <div class="label_cnt">
+                    <label class="sticker_label" for="sticker_size_input">
+                        <span class="count_label">Розмір: <span id="sticker_size_value">10</span> мм</span>
+                    </label>
+                    <input class="order_input_select" type="range" id="sticker_size_input" value="10" min="10" max="280"
+                           >
+                </div>
+                <div class="divider"></div>
+                <div class="label_cnt">
+                    <label class="sticker_label" for="sticker_quantity_input">
+                        <span class="count_label">Кількість:<span id="sticker_quantity_value">713</span> шт</span>
+                    </label>
+                    <input class="order_input_select" type="range" id="sticker_quantity_input" value="1" min="713"
+                           max="14260" step="713">
+                </div>
+            </div>
+
             <div class="sticker_select_cnt">
                 <div class="label_cnt">
                     <label class="sticker_label" for="sticker_material">
-                        <span class="count_label">1. Матеріал</span>
+                        <span class="count_label">Матеріал</span>
                     </label>
                     <select class="order_input_select" name="" id="sticker_material"></select>
                 </div>
                 <div class="divider"></div>
                 <div class="label_cnt">
                     <label for="sticker_cutting_type">
-                        <span class="count_label">3. Тип порізки</span>
+                        <span class="count_label">Тип порізки</span>
                     </label>
                     <select class="order_input_select" name="" id="sticker_cutting_type"></select>
-                </div>
-            </div>
-            <div class="sticker_input_cnt">
-                <div class="label_cnt">
-                    <label class="sticker_label" for="sticker_size_diameter">
-                        <span class="count_label">2. Розмір: 10 мм</span>
-                    </label>
-                    <input class="order_input_select" type="range" id="sticker_size_diameter">
-                </div>
-                <div class="divider"></div>
-                <div class="label_cnt">
-                    <label class="sticker_label" for="sticker_quantity">
-                        <span class="count_label">4. Кількість: 228 шт</span>
-                    </label>
-                    <input class="order_input_select" type="range" id="sticker_quantity">
                 </div>
             </div>
             <div class="sticker_preview_cnt">
@@ -78,16 +82,20 @@
 
         <div class="sticker_calculate_result">
             <div>
-                <div class="sticker_result"><span>Вартість: </span><span style="font-weight: bold">10050 грн</span>
+                <div class="sticker_result">
+                    <span>Вартість: </span>
+                    <span id="sticker_result_price" style="font-weight: bold">10050</span>
+                    <span> грн</span>
                 </div>
-                <div class="sticker_result"><span>Орієнтовна дата готовності: </span><span style="font-weight: bold">24 квітня 18:00</span>
+                <div class="sticker_result"><span>Орієнтовна дата готовності: </span>
+                    <span id="sticker_result_date" style="font-weight: bold">24 квітня 18:00</span>
                 </div>
             </div>
             <div>
                 <input class="file_input" id="sticker_file" type="file">
             </div>
             <div>
-                <buttton class="btn_add_to_card">Додати у кошик</buttton>
+                <buttton class="btn_add_to_card" id="calc_round_sticker">Додати у кошик</buttton>
             </div>
         </div>
 
@@ -96,6 +104,8 @@
 
 
 </main>
+<script type="text/javascript" src="../index.js"></script>
+
 <script type="text/javascript" src="../scripts/standardStickerCalculator.js"></script>
 
 </body>

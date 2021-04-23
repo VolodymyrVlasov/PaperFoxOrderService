@@ -77,10 +77,10 @@ class TestOrder {
 }
 
 interface Size {
-    diameter: number | null
-    width: number | null
-    height: number | null
-    borderRadius: number | null
+    diameter?: number
+    width?: number
+    height?: number
+    borderRadius?: number
 }
 
 enum MaterialType {
@@ -89,15 +89,20 @@ enum MaterialType {
     RAFLATAC_PET = "RAFLATAC_PET",
     RITRAMA_LAMINATED = "RITRAMA_LAMINATED",
     RITRAMA_TRANSPARENT = "RITRAMA_TRANSPARENT",
-    UPM = "UPM",
-    COLOR_COPY = "COLOR_COPY"
+}
+
+interface Material {
+    type: MaterialType;
+    index: number;
+    name: string;
 }
 
 interface PrintingProduct {
     quantity: number,
-    materialType: MaterialType,
+    materialType: MaterialType, // todo: Material[]
     size: Size | null,
     cuttingType: CuttingType
+    totalPrice?: number
 }
 
 
@@ -176,7 +181,7 @@ document.getElementById('get_order_btn')?.addEventListener('click', function (e)
     TestOrder.getOrder()
 })
 
-document.getElementById('calc_btn')?.addEventListener('click', function () {
+document.getElementById('calc_round_sticker')?.addEventListener('click', function () {
     let roundSticker: PrintingProduct;
     roundSticker = {
         quantity: 100,

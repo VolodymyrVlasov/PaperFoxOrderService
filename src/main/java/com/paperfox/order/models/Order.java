@@ -1,22 +1,23 @@
 package com.paperfox.order.models;
+
 import com.paperfox.order.models.types.DeliveryMethodType;
 import com.paperfox.order.models.types.OrderStatusType;
 import com.paperfox.order.models.types.PaymentMethodType;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.*;
 
-public class Order  { //implements Validator
-    private UUID orderUUID;
-    private long orderID;
-    private Customer customer;
-    private DeliveryMethodType deliveryMethodType;
-    private PaymentMethodType paymentMethodType;
-    private OrderStatusType orderStatusType;
-    private MultipartFile file;
-    private GregorianCalendar timeStamp;
-
+public class Order { //implements Validator
     private static final List<String> fileTypes = Arrays.asList(
             "application/pdf", "image/png", "image/jpg", "image/jpeg");
+    private UUID orderUUID;
+    private final long orderID;
+    private final Customer customer;
+    private final DeliveryMethodType deliveryMethodType;
+    private final PaymentMethodType paymentMethodType;
+    private final OrderStatusType orderStatusType;
+    private MultipartFile file;
+    private final GregorianCalendar timeStamp;
 
     public Order(Customer customer, DeliveryMethodType deliveryMethodType, PaymentMethodType paymentMethodType, OrderStatusType orderStatusType) {
         this.customer = customer;
@@ -62,6 +63,10 @@ public class Order  { //implements Validator
 //        return orderUUID;
 //    }
 
+    public static List<String> getFileTypes() {
+        return fileTypes;
+    }
+
     public long getOrderID() {
         return orderID;
     }
@@ -88,10 +93,6 @@ public class Order  { //implements Validator
 
     public GregorianCalendar getTimeStamp() {
         return timeStamp;
-    }
-
-    public static List<String> getFileTypes() {
-        return fileTypes;
     }
 
     @Override

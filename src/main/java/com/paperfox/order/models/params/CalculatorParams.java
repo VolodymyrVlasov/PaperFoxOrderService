@@ -1,9 +1,5 @@
 package com.paperfox.order.models.params;
 
-import com.paperfox.order.models.types.CuttingType;
-import com.paperfox.order.models.types.MaterialType;
-
-import java.util.List;
 import java.util.Map;
 
 public class CalculatorParams {

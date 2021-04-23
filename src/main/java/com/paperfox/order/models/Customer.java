@@ -5,10 +5,10 @@ import java.util.UUID;
 public class Customer {
     private UUID customerUUID;
     private long chatID;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String email;
+    private final String firstName;
+    private final String lastName;
+    private final String phoneNumber;
+    private final String email;
 
     public Customer(String firstName, String lastName, String phoneNumber, String email) {
         this.firstName = firstName;

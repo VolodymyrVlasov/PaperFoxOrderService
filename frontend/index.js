@@ -78,8 +78,6 @@ var MaterialType;
     MaterialType["RAFLATAC_PET"] = "RAFLATAC_PET";
     MaterialType["RITRAMA_LAMINATED"] = "RITRAMA_LAMINATED";
     MaterialType["RITRAMA_TRANSPARENT"] = "RITRAMA_TRANSPARENT";
-    MaterialType["UPM"] = "UPM";
-    MaterialType["COLOR_COPY"] = "COLOR_COPY";
 })(MaterialType || (MaterialType = {}));
 var PaymentMethodType;
 (function (PaymentMethodType) {
@@ -136,7 +134,7 @@ var CuttingType;
     e.preventDefault();
     TestOrder.getOrder();
 });
-(_c = document.getElementById('calc_btn')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', function () {
+(_c = document.getElementById('calc_round_sticker')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', function () {
     let roundSticker;
     roundSticker = {
         quantity: 100,
