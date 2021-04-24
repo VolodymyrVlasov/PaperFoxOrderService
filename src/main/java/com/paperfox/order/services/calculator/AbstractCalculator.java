@@ -1,11 +1,12 @@
-package com.paperfox.order.services.calculation;
+package com.paperfox.order.services.calculator;
 
 import com.paperfox.order.constants.Price;
 import com.paperfox.order.models.Material;
 import com.paperfox.order.models.types.CuttingType;
-import com.paperfox.order.models.types.MaterialGroups;
 
 public abstract class AbstractCalculator {
+
+    // todo implement Date calculation
     public double calcCutPrice(double cutQuantityPerCirculation, CuttingType cuttingType) {
         if (cutQuantityPerCirculation < Price.CUT_CIRCULATION_INDEX[0]) {
             return cutQuantityPerCirculation * cuttingType.price[0];

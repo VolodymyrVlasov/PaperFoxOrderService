@@ -1,4 +1,4 @@
-package com.paperfox.order.services.calculation;
+package com.paperfox.order.services.calculator;
 
 import com.paperfox.order.models.ProductSize;
 import com.paperfox.order.models.Size;

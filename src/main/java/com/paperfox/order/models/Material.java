@@ -2,6 +2,9 @@ package com.paperfox.order.models;
 
 
 public class Material {
+
+    // todo define standard time for production
+
     private int index;
     private String name;
     private int[] price;

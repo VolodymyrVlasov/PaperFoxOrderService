@@ -1,4 +1,4 @@
-package com.paperfox.order.services;
+package com.paperfox.order.services.calculator;
 
 import com.paperfox.order.models.Material;
 import com.paperfox.order.models.params.CalculatorParams;

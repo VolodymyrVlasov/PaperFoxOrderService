@@ -7,7 +7,6 @@ import com.paperfox.order.models.types.MaterialGroups;
 import com.paperfox.order.models.types.ProductType;
 
 public class PrintingProduct {
-    // todo ProductType enum
     private ProductType productType;
     private double quantity;
     private double totalPrice;
@@ -17,7 +16,6 @@ public class PrintingProduct {
     private ProductSize size;
     private Material material;
     private CuttingType cuttingType;
-
 
     public PrintingProduct(ProductType productType, double quantity, double totalPrice, double cutPrice,
                            double printPrice, double quantityPerSheet, ProductSize size, Material material, CuttingType cuttingType) {

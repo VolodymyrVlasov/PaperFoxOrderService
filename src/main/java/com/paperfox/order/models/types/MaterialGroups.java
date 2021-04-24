@@ -2,10 +2,9 @@ package com.paperfox.order.models.types;
 
 import com.paperfox.order.models.Material;
 
-// todo: separate materials to object
-// todo: add product data calculation
+// todo: add product Date calculation -> ?
 //
-// todo: add separate file upload ?
+// todo: add separate file upload -> ?
 
 public enum MaterialGroups {
 

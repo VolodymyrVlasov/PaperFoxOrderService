@@ -1,7 +1,7 @@
 package com.paperfox.order.controllers;
 
 import com.paperfox.order.models.Order;
-import com.paperfox.order.services.OrderService;
+import com.paperfox.order.services.order.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

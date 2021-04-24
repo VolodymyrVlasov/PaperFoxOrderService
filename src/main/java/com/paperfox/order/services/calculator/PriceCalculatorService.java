@@ -1,8 +1,7 @@
-package com.paperfox.order.services;
+package com.paperfox.order.services.calculator;
 
 import com.paperfox.order.controllers.OrderController;
 import com.paperfox.order.models.products.PrintingProduct;
-import com.paperfox.order.services.calculation.StandardShapeStickerCalculator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
