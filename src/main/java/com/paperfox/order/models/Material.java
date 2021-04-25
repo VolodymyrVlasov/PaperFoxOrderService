@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 public class Material {
 
-    // todo define standard time for production
-
     private int index;
     private String name;
     private int[] price;
     private Size printableArea;
     private int productionTime;
+    private MaterialGroupType groupType; //todo
+//    private MaterialType materialType; // todo
 
     public Material(int index, String name, int[] price, Size printableArea, int productionTime) {
         this.index = index;
