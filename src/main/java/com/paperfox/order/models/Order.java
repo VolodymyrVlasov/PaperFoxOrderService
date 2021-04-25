@@ -28,41 +28,6 @@ public class Order { //implements Validator
         this.orderID = new Random().nextInt(500);
     }
 
-    //    @Override
-//    public boolean supports(Class<?> aClass) {
-//        return Order.class.isAssignableFrom(aClass);
-//    }
-
-//    @Override
-//    public void validate(Object o, Errors errors) {
-//        Order order = (Order) o;
-//        if (order.deliveryMethodType == null) {
-//            errors.rejectValue("order.deliveryMethodType", "is empty");
-//        }
-//        if (order.paymentMethodType == null) {
-//            errors.rejectValue("order.paymentMethodType", "is empty");
-//        }
-//        if (order.file != null) {
-//            errors.rejectValue("order.deliveryMethodType", "is empty");
-//            String fileType = order.file.getContentType();
-//
-//            boolean isOk = false;
-//
-//            for (String e : fileTypes) {
-//                if (fileType.contains(e)) {
-//                    isOk = true;
-//                    break;
-//                }
-//                errors.rejectValue("order.file", "file type not support");
-//            }
-//        }
-//    }
-
-
-//    public UUID getOrderUUID() {
-//        return orderUUID;
-//    }
-
     public static List<String> getFileTypes() {
         return fileTypes;
     }

@@ -40,27 +40,18 @@ OrderServiceApi.restGetRequest()
 })
     .catch(error => console.log(error));
 function renderOptions(response) {
-    console.log(response);
     const materialType = response.materialType;
     const cuttingType = response.cuttingType;
     let materialTypeSelect = document.getElementById('sticker_material');
     let cuttingTypeMapSelect = document.getElementById('sticker_cutting_type');
     if (cuttingTypeMapSelect == null || materialTypeSelect == null)
         return;
-    Array()
-        .sort((a, b) => a.index - b.index)
-        .forEach(function (value, index) {
+    materialType.forEach((material) => {
         let option = document.createElement('option');
-        option.innerText = value.name;
-        option.value = value.type;
+        option.innerText = material.name;
+        option.value = material.index.toString();
         materialTypeSelect.appendChild(option);
     });
-    // new Map(Object.entries(materialType)).forEach(function (value, key) {
-    //     let option = document.createElement('option')
-    //     option.innerText = value
-    //     option.value = key
-    //     materialTypeSelect.appendChild(option)
-    // });
     new Map(Object.entries(cuttingType)).forEach(function (value, key) {
         let option = document.createElement('option');
         option.innerText = value;
@@ -75,9 +66,11 @@ class OrderForm {
             this.outputSize.innerHTML = this.inputSize.value;
             this.createProduct();
         });
+        this.outputSizePreview = document.getElementById("sticker_preview_size_label");
         this.inputCount = document.getElementById("sticker_quantity_input");
         this.inputCount.addEventListener('input', () => {
             this.outputCount.innerHTML = this.inputCount.value;
+            this.outputSizePreview.innerHTML = this.inputCount.value;
             this.createProduct();
         });
         this.inputMaterialType = document.getElementById("sticker_material");
@@ -86,7 +79,6 @@ class OrderForm {
         this.inputCutType.addEventListener("change", () => this.createProduct());
         this.outputSize = document.getElementById("sticker_size_value");
         this.outputSize.innerHTML = this.inputSize.value;
-        this.outputSizePreview = document.getElementById("sticker_preview_size_label");
         this.outputCount = document.getElementById("sticker_quantity_value");
         this.outputPrice = document.getElementById("sticker_result_price");
         this.outputDate = document.getElementById("sticker_result_date");
@@ -95,16 +87,20 @@ class OrderForm {
         this.roundSticker = {
             productType: ProductType.STICKER,
             quantity: Number.parseFloat(this.inputCount.value),
-            materialType: MaterialType[this.inputMaterialType.value],
+            material: {
+                // name: this.inputMaterialType.textContent,
+                index: Number(this.inputMaterialType.value),
+            },
             cuttingType: CuttingType[this.inputCutType.value],
             size: {
                 diameter: Number.parseFloat(this.inputSize.value),
             }
         };
-        // console.log(this.roundSticker)
+        console.log(this.roundSticker);
         this.calculateProduct();
     }
     calculateProduct() {
+        console.log(this.roundSticker);
         let request = new Request("http://62.244.50.147:8080/api/calc", {
             method: "POST",
             body: JSON.stringify(this.roundSticker),
@@ -128,85 +124,13 @@ class OrderForm {
     }
     updateOrderForm(response) {
         console.log(response);
-        if (response.size && response.size.diameter && response.quantity && response.totalPrice) {
+        if (response.size && response.size.diameter && response.quantity && response.totalPrice && response.productionTime) {
             this.outputSize.innerHTML = response.size.diameter.toString();
             this.outputSizePreview.innerHTML = response.size.diameter.toString();
             this.outputCount.innerHTML = response.quantity.toString();
             this.outputPrice.innerHTML = response.totalPrice.toString();
-            this.outputDate.innerHTML = this.getReadyDate(response);
+            this.outputDate.innerHTML = response.productionTime.toString();
         }
-    }
-    getReadyDate(response) {
-        let date = new Date();
-        let options = {
-            month: 'long',
-            day: 'numeric',
-            weekday: 'long',
-            timezone: 'UTC',
-            hour: 'numeric',
-        };
-        /**
-         *    'Паперова наліпка', 0
-         * 'Паперова наліпка з ламінацією', 1
-         'PET наліпка', 2
-         'Вінілова наліпка з ламінацією', 3
-         'Прозора наліпка (без білого кольору)', 4
-         */
-        switch (date.getDay()) {
-            case 1: // Sunday
-                if (response.materialType != MaterialType.RITRAMA_LAMINATED) {
-                    date.setDate(date.getDate() + 1);
-                }
-                else if (response.materialType == MaterialType.RITRAMA_LAMINATED) {
-                    date.setDate(date.getDate() + 2);
-                }
-                break;
-            case 6: // Saturday
-                if (response.materialType != MaterialType.RITRAMA_LAMINATED) {
-                    date.setDate(date.getDate() + 2);
-                }
-                else if (response.materialType == MaterialType.RITRAMA_LAMINATED) {
-                    date.setDate(date.getDate() + 3);
-                }
-                break;
-            case 5: //Friday
-                if (date.getHours() > 12) {
-                    if (response.materialType != MaterialType.RITRAMA_LAMINATED) {
-                        date.setDate(date.getDate() + 3);
-                    }
-                    else if (response.materialType == MaterialType.RITRAMA_LAMINATED) {
-                        date.setDate(date.getDate() + 4);
-                    }
-                }
-                else {
-                    if (response.materialType != MaterialType.RITRAMA_LAMINATED) {
-                        date.setDate(date.getDate());
-                    }
-                    else if (response.materialType == MaterialType.RITRAMA_LAMINATED) {
-                        date.setDate(date.getDate() + 3);
-                    }
-                }
-                break;
-            default: // monday - thursday
-                if (date.getHours() > 12) {
-                    if (response.materialType != MaterialType.RITRAMA_LAMINATED) {
-                        date.setDate(date.getDate() + 1);
-                    }
-                    else if (response.materialType == MaterialType.RITRAMA_LAMINATED) {
-                        date.setDate(date.getDate() + 2);
-                    }
-                }
-                else {
-                    if (response.materialType != MaterialType.RITRAMA_LAMINATED) {
-                        date.setDate(date.getDate());
-                    }
-                    else if (response.materialType == MaterialType.RITRAMA_LAMINATED) {
-                        date.setDate(date.getDate() + 1);
-                    }
-                }
-        }
-        date.setHours(18);
-        return date.toDateString();
     }
     addToCart() {
         // todo

@@ -8,7 +8,7 @@ interface Order {
 }
 
 interface CalculationParams {
-    materialType: MaterialType
+    materialType: Material[]
     cuttingType: CuttingType
 }
 
@@ -27,18 +27,18 @@ interface Size {
 }
 
 interface Material {
-    type: MaterialType;
     index: number;
     name: string;
 }
 
 interface PrintingProduct {
     quantity: number,
-    materialType: MaterialType, // todo: Material[]
+    material: Material,
     size: Size | null,
     cuttingType: CuttingType
     totalPrice?: number
     productType: ProductType
+    productionTime?: Date
 }
 
 

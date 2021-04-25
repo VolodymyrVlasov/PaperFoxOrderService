@@ -3,8 +3,10 @@ package com.paperfox.order.models.products;
 import com.paperfox.order.models.Material;
 import com.paperfox.order.models.ProductSize;
 import com.paperfox.order.models.types.CuttingType;
-import com.paperfox.order.models.types.MaterialGroups;
 import com.paperfox.order.models.types.ProductType;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class PrintingProduct {
     private ProductType productType;
@@ -16,9 +18,11 @@ public class PrintingProduct {
     private ProductSize size;
     private Material material;
     private CuttingType cuttingType;
+    private GregorianCalendar productionTime;
 
     public PrintingProduct(ProductType productType, double quantity, double totalPrice, double cutPrice,
-                           double printPrice, double quantityPerSheet, ProductSize size, Material material, CuttingType cuttingType) {
+                           double printPrice, double quantityPerSheet, ProductSize size, Material material,
+                           CuttingType cuttingType, GregorianCalendar productionTime) {
         this.productType = productType;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
@@ -28,6 +32,7 @@ public class PrintingProduct {
         this.size = size;
         this.material = material;
         this.cuttingType = cuttingType;
+        this.productionTime = productionTime;
     }
 
     public ProductType getProductType() {
@@ -66,6 +71,10 @@ public class PrintingProduct {
         return cuttingType;
     }
 
+    public GregorianCalendar getProductionTime() {
+        return productionTime;
+    }
+
     @Override
     public String toString() {
         return "PrintingProduct{" +
@@ -78,6 +87,7 @@ public class PrintingProduct {
                 ", size=" + size +
                 ", material=" + material +
                 ", cuttingType=" + cuttingType +
+                ", productionTime=" + productionTime +
                 '}';
     }
 }

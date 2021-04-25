@@ -4,12 +4,13 @@ import com.paperfox.order.models.ProductSize;
 import com.paperfox.order.models.Size;
 import com.paperfox.order.models.products.PrintingProduct;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class StandardShapeStickerCalculator extends AbstractCalculator implements ICalculator {
 
     @Override
     public PrintingProduct calcProduct(PrintingProduct product) {
-
-
         double quantityPerSheet = calculateQuantityPerSheet(product.getMaterial().getPrintableArea(), product.getSize());
         double cutPerSheet = ((product.getSize().diameter / 1000) * 3.14) * quantityPerSheet;
         double quantitySheetsPerCirculation = Math.ceil(product.getQuantity() / quantityPerSheet);
@@ -20,14 +21,14 @@ public class StandardShapeStickerCalculator extends AbstractCalculator implement
         double stickersQuantityPerCirculation = quantityPerSheet * quantitySheetsPerCirculation;
 
         return new PrintingProduct(product.getProductType(), stickersQuantityPerCirculation, totalPrice, cutPrice,
-                printPrice, quantityPerSheet, product.getSize(), product.getMaterial(), product.getCuttingType());
+                printPrice, quantityPerSheet, product.getSize(), product.getMaterial(), product.getCuttingType(),
+                getProductionDate(product.getMaterial().getProductionTime()));
     }
 
 
     @Override
     public double calculateQuantityPerSheet(Size printableArea, ProductSize size) {
         double quantityPerSheet = 0;
-
         if (size.diameter != 0) {
             quantityPerSheet = ((Math.floor(printableArea.height / (size.diameter + 2))) *
                     (Math.floor(printableArea.width / (size.diameter + 2))));
@@ -46,4 +47,7 @@ public class StandardShapeStickerCalculator extends AbstractCalculator implement
         }
         return quantityPerSheet;
     }
+
+
+
 }
