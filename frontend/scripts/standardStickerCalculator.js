@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const getInitialParams = 'http://62.244.50.147:8080/api/stickers/getInitialParams?type=SELF_ADHESIVE';
+const getInitialParams = 'http://62.244.50.147:8080/api/getRenderParams?type=SELF_ADHESIVE';
 class OrderServiceApi {
     static restGetRequest() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -48,8 +48,9 @@ function renderOptions(response) {
         return;
     materialType.forEach((material) => {
         let option = document.createElement('option');
-        option.innerText = material.name;
-        option.value = material.index.toString();
+        if (material.name)
+            option.innerText = material.name;
+        option.value = material.materialType;
         materialTypeSelect.appendChild(option);
     });
     new Map(Object.entries(cuttingType)).forEach(function (value, key) {
@@ -88,8 +89,7 @@ class OrderForm {
             productType: ProductType.STICKER,
             quantity: Number.parseFloat(this.inputCount.value),
             material: {
-                // name: this.inputMaterialType.textContent,
-                index: Number(this.inputMaterialType.value),
+                materialType: MaterialType[this.inputMaterialType.value]
             },
             cuttingType: CuttingType[this.inputCutType.value],
             size: {

@@ -1,6 +1,6 @@
 package com.paperfox.order.models.params;
 
-import com.paperfox.order.models.Material;
+import com.paperfox.order.models.materials.Material;
 
 import java.util.List;
 import java.util.Map;

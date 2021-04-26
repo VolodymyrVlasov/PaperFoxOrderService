@@ -44,3 +44,7 @@ var MaterialType;
     MaterialType["RITRAMA_LAMINATED"] = "RITRAMA_LAMINATED";
     MaterialType["RITRAMA_TRANSPARENT"] = "RITRAMA_TRANSPARENT";
 })(MaterialType || (MaterialType = {}));
+var MaterialGroupType;
+(function (MaterialGroupType) {
+    MaterialGroupType["SELF_ADHESIVE"] = "SELF_ADHESIVE";
+})(MaterialGroupType || (MaterialGroupType = {}));

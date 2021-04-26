@@ -1,5 +1,4 @@
-
-const getInitialParams = 'http://62.244.50.147:8080/api/stickers/getInitialParams?type=SELF_ADHESIVE'
+const getInitialParams = 'http://62.244.50.147:8080/api/getRenderParams?type=SELF_ADHESIVE'
 
 interface ApiResponse<T> extends Response {
     jsonBody?: T;
@@ -45,8 +44,9 @@ function renderOptions(response: CalculationParams): void {
 
     materialType.forEach((material) => {
         let option = document.createElement('option')
+        if (material.name)
         option.innerText = material.name
-        option.value = material.index.toString()
+        option.value = material.materialType
         materialTypeSelect.appendChild(option)
     })
 
@@ -109,8 +109,7 @@ class OrderForm {
             productType: ProductType.STICKER,
             quantity: Number.parseFloat(this.inputCount.value),
             material: {
-                // name: this.inputMaterialType.textContent,
-                index: Number(this.inputMaterialType.value),
+                materialType: MaterialType[this.inputMaterialType.value as keyof typeof MaterialType]
             },
             cuttingType: CuttingType[this.inputCutType.value as keyof typeof CuttingType],
             size: {

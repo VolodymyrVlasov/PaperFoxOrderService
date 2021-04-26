@@ -1,76 +1,52 @@
 package com.paperfox.order.repositories.calculator;
 
+import com.paperfox.order.fakeDB.MaterialsFakeDB;
+import com.paperfox.order.fakeDB.TimeScopesFakeDB;
 import com.paperfox.order.models.materials.Material;
-import com.paperfox.order.models.materials.MaterialGroupType;
 import com.paperfox.order.models.materials.MaterialType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static com.paperfox.order.constants.Price.RAFLATAC_PRINT_PRICE;
-import static com.paperfox.order.constants.PrintSizes.RAFLATAC_PRINTABLE_SIZE;
-
-//interface IFakeRepository {
-//
-//}
-
-public class FakeCalculatorRepository implements IFakeCalculatorRepository {
-    public static List<Material> getAllData() {
-        List<Material> materials = new ArrayList<>();
-        Material reflatac = new Material(
-                1,
-                "Паперова наліпка",
-                RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE,
-                1,
-                MaterialGroupType.SELF_ADHESIVE,
-                MaterialType.RAFLATAC);
-
-        materials.add(reflatac);
-
-        Material reflatacLaminated = new Material(
-                2,
-                "Паперова наліпка з ламинацією",
-                RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE,
-                1,
-                MaterialGroupType.SELF_ADHESIVE,
-                MaterialType.RAFLATAC_LAMINATED);
-
-        materials.add(reflatacLaminated);
-
-        Material raflatacPET = new Material(
-                3,
-                "PET наліпка",
-                RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE,
-                1,
-                MaterialGroupType.SELF_ADHESIVE,
-                MaterialType.RAFLATAC_LAMINATED);
-        materials.add(raflatacPET);
-
-        Material ritramaLaminated = new Material(
-                4,
-                "Вініл ламінований",
-                RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE,
-                2,
-                MaterialGroupType.SELF_ADHESIVE,
-                MaterialType.RAFLATAC_LAMINATED);
-        materials.add(ritramaLaminated);
-
-        Material ritramaTrasparent = new Material(
-                5, "Прозора наліпка", RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE, 1,
-                MaterialGroupType.SELF_ADHESIVE,
-                MaterialType.RAFLATAC_LAMINATED);
-        materials.add(ritramaTrasperent);
-
-        return materials;
+//@Repository
+public class FakeRepository { //implements IFakeCalculatorRepository
+    public static List<Material> getAllMaterials() {
+        return MaterialsFakeDB.materials;
     }
 
-    @Override
-    public List<Material> getByGroupType(String groupType) {
+    public static List<Material> getMaterialsByMaterialGroupType(String groupType) {
+        List<Material> groupMaterial = new ArrayList<>();
+
+        for (Material material : getAllMaterials()) {
+            if (material.getGroupType().name().equals(groupType)) {
+                groupMaterial.add(material);
+            }
+        }
+        return groupMaterial;
+    }
+
+    public static Material getMaterialByMaterialType(MaterialType materialType) {
+        for (Material material : getAllMaterials()) {
+            if (material.getMaterialType().name().equals(materialType.name())) {
+                return material;
+            }
+        }
         return null;
     }
 
+    public static Map<String, Integer> getFirstDeadlineTime() {
+        Map<String, Integer> time = new HashMap<>();
+        time.put("HOUR_OF_DAY", TimeScopesFakeDB.firstTimeHour);
+        time.put("MINUTE", TimeScopesFakeDB.firstTimeMinute);
+        return time;
+    }
 
-//    public static List<Material> getOfType(MaterialGroupType group) {
-////        getAllData().sort();
-//    }
+    public static Map<String, Integer> getSecondDeadlineTime() {
+        Map<String, Integer> time = new HashMap<>();
+        time.put("HOUR_OF_DAY", TimeScopesFakeDB.secondTimeHour);
+        time.put("MINUTE", TimeScopesFakeDB.secondTimeMinute);
+        return time;
+    }
 }

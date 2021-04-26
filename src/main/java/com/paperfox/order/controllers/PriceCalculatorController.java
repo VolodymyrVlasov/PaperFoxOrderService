@@ -22,8 +22,8 @@ public class PriceCalculatorController {
         return calculatorService.calculate(product);
     }
 
-    @GetMapping(value = "/api/stickers/getInitialParams")
-    private CalculatorParams getInitialParams(@RequestParam String type) throws Exception {
-        return calculatorService.getCalculatorParamsByType(type);
+    @GetMapping(value = "/api/getRenderParams")
+    private CalculatorParams getRenderParams(@RequestParam String type) throws Exception {
+        return calculatorService.getRenderParamsByType(type);
     }
 }

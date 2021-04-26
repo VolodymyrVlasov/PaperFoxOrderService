@@ -1,8 +1,6 @@
 package com.paperfox.order.repositories.calculator;
 
-import com.paperfox.order.models.Material;
-import com.paperfox.order.models.MaterialGroupType;
-import com.paperfox.order.models.types.MaterialGroups;
+import com.paperfox.order.models.materials.Material;
 
 import java.util.List;
 

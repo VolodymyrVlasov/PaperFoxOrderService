@@ -1,7 +1,7 @@
 package com.paperfox.order.models.types;
 
-import static com.paperfox.order.constants.Price.PLOTTER_CUTTING_PRICE;
-import static com.paperfox.order.constants.Price.THROUGH_PLOTTER_CUTTING_PRICE;
+import static com.paperfox.order.fakeDB.PriceFakeDB.PLOTTER_CUTTING_PRICE;
+import static com.paperfox.order.fakeDB.PriceFakeDB.THROUGH_PLOTTER_CUTTING_PRICE;
 
 public enum CuttingType {
     //    HAND_CUTTING(HAND_CUTTING_PRICE,""),

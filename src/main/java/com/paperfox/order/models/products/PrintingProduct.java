@@ -1,11 +1,10 @@
 package com.paperfox.order.models.products;
 
-import com.paperfox.order.models.Material;
+import com.paperfox.order.models.materials.Material;
 import com.paperfox.order.models.ProductSize;
 import com.paperfox.order.models.types.CuttingType;
 import com.paperfox.order.models.types.ProductType;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class PrintingProduct {
@@ -33,6 +32,10 @@ public class PrintingProduct {
         this.material = material;
         this.cuttingType = cuttingType;
         this.productionTime = productionTime;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
     public ProductType getProductType() {

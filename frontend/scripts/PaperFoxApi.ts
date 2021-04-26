@@ -27,8 +27,13 @@ interface Size {
 }
 
 interface Material {
-    index: number;
-    name: string;
+    index?: number;
+    name?: string;
+    productionTime?: Date;
+    groupType?: MaterialGroupType;
+    materialType: MaterialType;
+
+
 }
 
 interface PrintingProduct {
@@ -85,4 +90,8 @@ enum MaterialType {
     RAFLATAC_PET = "RAFLATAC_PET",
     RITRAMA_LAMINATED = "RITRAMA_LAMINATED",
     RITRAMA_TRANSPARENT = "RITRAMA_TRANSPARENT",
+}
+
+enum MaterialGroupType {
+    SELF_ADHESIVE = "SELF_ADHESIVE",
 }

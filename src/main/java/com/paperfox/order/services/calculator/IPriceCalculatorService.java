@@ -5,5 +5,5 @@ import com.paperfox.order.models.products.PrintingProduct;
 
 public interface IPriceCalculatorService {
     PrintingProduct calculate(PrintingProduct product) throws Exception;
-    CalculatorParams getCalculatorParamsByType(String materialGroupType);
+    CalculatorParams getRenderParamsByType(String materialGroupType);
 }

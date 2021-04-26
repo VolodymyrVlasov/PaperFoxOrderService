@@ -9,10 +9,10 @@ public class ProductSize extends Size {
     @Override
     public String toString() {
         return "ProductSize{" +
-                "\n\t\twidth=" + width +
-                ", \n\t\theight=" + height +
-                ", \n\t\tdiameter=" + diameter +
-                ", \n\t\tborderRadius=" + borderRadius +
-                "\n\t}";
+                "width=" + width +
+                ", height=" + height +
+                ", diameter=" + diameter +
+                ", borderRadius=" + borderRadius +
+                "}";
     }
 }

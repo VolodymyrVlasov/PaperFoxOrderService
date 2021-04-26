@@ -1,4 +1,6 @@
-package com.paperfox.order.models;
+package com.paperfox.order.models.materials;
+
+import com.paperfox.order.models.Size;
 
 import java.util.Arrays;
 
@@ -9,15 +11,22 @@ public class Material {
     private int[] price;
     private Size printableArea;
     private int productionTime;
-    private MaterialGroupType groupType; //todo
-//    private MaterialType materialType; // todo
+    private MaterialGroupType groupType;
+    private MaterialType materialType;
 
-    public Material(int index, String name, int[] price, Size printableArea, int productionTime) {
+    public Material(int index, String name, int[] price, Size printableArea, int productionTime,
+                    MaterialGroupType groupType, MaterialType materialType) {
         this.index = index;
         this.name = name;
         this.price = price;
         this.printableArea = printableArea;
         this.productionTime = productionTime;
+        this.groupType = groupType;
+        this.materialType = materialType;
+    }
+
+    public void setMaterialType(MaterialType materialType) {
+        this.materialType = materialType;
     }
 
     public int getIndex() {
@@ -40,6 +49,14 @@ public class Material {
         return productionTime;
     }
 
+    public MaterialGroupType getGroupType() {
+        return groupType;
+    }
+
+    public MaterialType getMaterialType() {
+        return materialType;
+    }
+
     @Override
     public String toString() {
         return "Material{" +
@@ -48,6 +65,8 @@ public class Material {
                 ", price=" + Arrays.toString(price) +
                 ", printableArea=" + printableArea +
                 ", productionTime=" + productionTime +
+                ", groupType=" + groupType +
+                ", materialType=" + materialType +
                 '}';
     }
 }
