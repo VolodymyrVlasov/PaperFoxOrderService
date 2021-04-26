@@ -13,7 +13,7 @@ import static com.paperfox.order.fakeDB.PrintSizesFakeDB.RAFLATAC_PRINTABLE_SIZE
 public class MaterialsFakeDB {
     public static final List<Material> materials = new ArrayList<>();
 
-    {
+    static {
         Material raflatacMaterial = new Material(
                 1,
                 "Паперова наліпка",

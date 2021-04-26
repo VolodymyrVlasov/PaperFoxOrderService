@@ -33,7 +33,7 @@ public class PriceFakeDB {
     public static final Map<MaterialType, Price> materialPrices = new HashMap<>();  //fake database of material prices
     public static final Map<CuttingType, Price> cuttingPrices = new HashMap<>();    //fake database of material prices
 
-    {
+    static {
         Map<Integer, Double> raflatacPrice = new HashMap<>();
         raflatacPrice.put(11, 28d);
         raflatacPrice.put(21, 24d);
