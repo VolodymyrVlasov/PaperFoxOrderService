@@ -1,96 +1,71 @@
 package com.paperfox.order.fakeDB;
 
-import com.paperfox.order.models.materials.MaterialType;
-import com.paperfox.order.models.types.CuttingType;
+import com.paperfox.order.models.materials.Price;
 
-import java.util.HashMap;
-import java.util.Map;
-
-class Price {
-    Map<Integer, Double> price = new HashMap<>();
-
-    public Price(Map<Integer, Double> price) {
-        this.price = price;
-    }
-
-    public Map<Integer, Double> getPrice() {
-        return price;
-    }
-
-    public void setPrice(Map<Integer, Double> price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Price{" +
-                "price=" + price +
-                '}';
-    }
-}
+import java.util.ArrayList;
+import java.util.List;
 
 public class PriceFakeDB {
-    public static final Map<MaterialType, Price> materialPrices = new HashMap<>();  //fake database of material prices
-    public static final Map<CuttingType, Price> cuttingPrices = new HashMap<>();    //fake database of material prices
+    public static final List<Price> raflatacPrice;
+    public static final List<Price> raflatacLaminatedPrice;
+    public static final List<Price> raflatacPetPrice;
+    public static final List<Price> ritramaLaminatedPrice;
+    public static final List<Price> ritramaTransparentPrice;
+
+    public static final List<Price> plotterCuttingPrice;
+    public static final List<Price> throughPlotterCuttingPrice;
 
     static {
-        Map<Integer, Double> raflatacPrice = new HashMap<>();
-        raflatacPrice.put(11, 28d);
-        raflatacPrice.put(21, 24d);
-        raflatacPrice.put(51, 19d);
-        raflatacPrice.put(101, 17d);
-        raflatacPrice.put(100, 14d);
-        materialPrices.put(MaterialType.RAFLATAC, new Price(raflatacPrice));
+        raflatacPrice = new ArrayList<>();
+        raflatacPrice.add(new Price(11, 28d));
+        raflatacPrice.add(new Price(21, 24d));
+        raflatacPrice.add(new Price(51, 19d));
+        raflatacPrice.add(new Price(101, 17d));
+        raflatacPrice.add(new Price(100, 14d));
 
-        Map<Integer, Double> raflatacLaminatedPrice = new HashMap<>();
-        raflatacLaminatedPrice.put(11, 52d);
-        raflatacLaminatedPrice.put(21, 43d);
-        raflatacLaminatedPrice.put(51, 36d);
-        raflatacLaminatedPrice.put(101, 31d);
-        raflatacLaminatedPrice.put(100, 26d);
-        materialPrices.put(MaterialType.RAFLATAC, new Price(raflatacLaminatedPrice));
+        raflatacLaminatedPrice = new ArrayList<>();
+        raflatacLaminatedPrice.add(new Price(11, 52d));
+        raflatacLaminatedPrice.add(new Price(21, 43d));
+        raflatacLaminatedPrice.add(new Price(51, 36d));
+        raflatacLaminatedPrice.add(new Price(101, 31d));
+        raflatacLaminatedPrice.add(new Price(100, 26d));
 
-        Map<Integer, Double> raflatacPetPrice = new HashMap<>();
-        raflatacPetPrice.put(11, 60d);
-        raflatacPetPrice.put(21, 48d);
-        raflatacPetPrice.put(51, 42d);
-        raflatacPetPrice.put(101, 36d);
-        raflatacPetPrice.put(100, 30d);
-        materialPrices.put(MaterialType.RAFLATAC, new Price(raflatacPetPrice));
+        raflatacPetPrice = new ArrayList<>();
+        raflatacPetPrice.add(new Price(11, 60d));
+        raflatacPetPrice.add(new Price(21, 48d));
+        raflatacPetPrice.add(new Price(51, 42d));
+        raflatacPetPrice.add(new Price(101, 36d));
+        raflatacPetPrice.add(new Price(100, 30d));
 
-        Map<Integer, Double> ritramaLaminatedPrice = new HashMap<>();
-        ritramaLaminatedPrice.put(11, 70d);
-        ritramaLaminatedPrice.put(21, 56d);
-        ritramaLaminatedPrice.put(51, 49d);
-        ritramaLaminatedPrice.put(101, 42d);
-        ritramaLaminatedPrice.put(100, 35d);
-        materialPrices.put(MaterialType.RAFLATAC, new Price(ritramaLaminatedPrice));
+        ritramaLaminatedPrice = new ArrayList<>();
+        ritramaLaminatedPrice.add(new Price(11, 70d));
+        ritramaLaminatedPrice.add(new Price(21, 56d));
+        ritramaLaminatedPrice.add(new Price(51, 49d));
+        ritramaLaminatedPrice.add(new Price(101, 42d));
+        ritramaLaminatedPrice.add(new Price(100, 35d));
 
-        Map<Integer, Double> ritramaTransparentPrice = new HashMap<>();
-        ritramaTransparentPrice.put(11, 64d);
-        ritramaTransparentPrice.put(21, 51d);
-        ritramaTransparentPrice.put(51, 45d);
-        ritramaTransparentPrice.put(101, 38d);
-        ritramaTransparentPrice.put(100, 32d);
-        materialPrices.put(MaterialType.RAFLATAC, new Price(ritramaTransparentPrice));
+        ritramaTransparentPrice = new ArrayList<>();
+        ritramaTransparentPrice.add(new Price(11, 64d));
+        ritramaTransparentPrice.add(new Price(21, 51d));
+        ritramaTransparentPrice.add(new Price(51, 45d));
+        ritramaTransparentPrice.add(new Price(101, 38d));
+        ritramaTransparentPrice.add(new Price(100, 32d));
 
         /**** CUTTING PRICES ****/
 
-        Map<Integer, Double> plotterCuttingPrice = new HashMap<>();
-        plotterCuttingPrice.put(10, 6d);            // <= 10
-        plotterCuttingPrice.put(50, 4d);            // > 10 && <= 50
-        plotterCuttingPrice.put(100, 3d);           // > 50 && <= 100
-        plotterCuttingPrice.put(250, 2.5);          // > 100 && <= 250
-        plotterCuttingPrice.put(251, 1.5);          // >= 251
-        cuttingPrices.put(CuttingType.PLOTTER_CUTTING, new Price(plotterCuttingPrice));
+        plotterCuttingPrice = new ArrayList<>();
+        plotterCuttingPrice.add(new Price(10, 6d));            // <= 10
+        plotterCuttingPrice.add(new Price(50, 4d));            // > 10 && <= 50
+        plotterCuttingPrice.add(new Price(100, 3d));           // > 50 && <= 100
+        plotterCuttingPrice.add(new Price(250, 2.5));          // > 100 && <= 250
+        plotterCuttingPrice.add(new Price(251, 1.5));          // >= 251
 
-        Map<Integer, Double> throughPlotterCuttingPrice = new HashMap<>();
-        throughPlotterCuttingPrice.put(10, 15d);
-        throughPlotterCuttingPrice.put(50, 10d);
-        throughPlotterCuttingPrice.put(100, 6d);
-        throughPlotterCuttingPrice.put(250, 5d);
-        throughPlotterCuttingPrice.put(251, 4d);
-        cuttingPrices.put(CuttingType.PLOTTER_CUTTING, new Price(throughPlotterCuttingPrice));
+        throughPlotterCuttingPrice = new ArrayList<>();
+        throughPlotterCuttingPrice.add(new Price(10, 15d));
+        throughPlotterCuttingPrice.add(new Price(50, 10d));
+        throughPlotterCuttingPrice.add(new Price(100, 6d));
+        throughPlotterCuttingPrice.add(new Price(250, 5d));
+        throughPlotterCuttingPrice.add(new Price(251, 4d));
 
     }
 

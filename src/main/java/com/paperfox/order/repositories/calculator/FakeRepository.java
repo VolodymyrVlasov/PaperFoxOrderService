@@ -4,6 +4,7 @@ import com.paperfox.order.fakeDB.MaterialsFakeDB;
 import com.paperfox.order.fakeDB.TimeScopesFakeDB;
 import com.paperfox.order.models.materials.Material;
 import com.paperfox.order.models.materials.MaterialType;
+import com.paperfox.order.models.materials.Price;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +36,6 @@ public class FakeRepository { //implements IFakeCalculatorRepository
         }
         return null;
     }
-
-
 
 
     public static Map<String, Integer> getFirstDeadlineTime() {

@@ -17,7 +17,7 @@ public class MaterialsFakeDB {
         Material raflatacMaterial = new Material(
                 1,
                 "Паперова наліпка",
-                RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE,
+                PriceFakeDB.raflatacPrice, RAFLATAC_PRINTABLE_SIZE,
                 1,
                 MaterialGroupType.SELF_ADHESIVE,
                 MaterialType.RAFLATAC);
@@ -25,7 +25,7 @@ public class MaterialsFakeDB {
         Material raflatacLaminatedMaterial = new Material(
                 2,
                 "Паперова наліпка з ламинацією",
-                RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE,
+                PriceFakeDB.raflatacLaminatedPrice, RAFLATAC_PRINTABLE_SIZE,
                 1,
                 MaterialGroupType.SELF_ADHESIVE,
                 MaterialType.RAFLATAC_LAMINATED);
@@ -33,7 +33,7 @@ public class MaterialsFakeDB {
         Material raflatacPETMaterial = new Material(
                 3,
                 "PET наліпка",
-                RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE,
+                PriceFakeDB.raflatacPetPrice, RAFLATAC_PRINTABLE_SIZE,
                 1,
                 MaterialGroupType.SELF_ADHESIVE,
                 MaterialType.RAFLATAC_PET);
@@ -41,14 +41,14 @@ public class MaterialsFakeDB {
         Material ritramaLaminatedMaterial = new Material(
                 4,
                 "Вініл ламінований",
-                RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE,
+                PriceFakeDB.ritramaLaminatedPrice, RAFLATAC_PRINTABLE_SIZE,
                 2,
                 MaterialGroupType.SELF_ADHESIVE,
                 MaterialType.RITRAMA_LAMINATED);
 
         Material ritramaTransparentMaterial = new Material(
                 5, "Прозора наліпка",
-                RAFLATAC_PRINT_PRICE, RAFLATAC_PRINTABLE_SIZE,
+                PriceFakeDB.ritramaTransparentPrice, RAFLATAC_PRINTABLE_SIZE,
                 1,
                 MaterialGroupType.SELF_ADHESIVE,
                 MaterialType.RITRAMA_TRANSPARENT);

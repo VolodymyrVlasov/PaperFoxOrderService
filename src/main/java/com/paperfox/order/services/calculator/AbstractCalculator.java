@@ -1,42 +1,47 @@
 package com.paperfox.order.services.calculator;
 
 import com.paperfox.order.fakeDB.PriceFakeDB;
-import com.paperfox.order.fakeDB.TimeScopesFakeDB;
 import com.paperfox.order.models.materials.Material;
+import com.paperfox.order.models.materials.Price;
 import com.paperfox.order.models.types.CuttingType;
 import com.paperfox.order.repositories.calculator.FakeRepository;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public abstract class AbstractCalculator {
 
     // todo implement Date calculation
     public double calcCutPrice(double cutQuantityPerCirculation, CuttingType cuttingType) {
-        if (cutQuantityPerCirculation < PriceFakeDB.CUT_CIRCULATION_INDEX[0]) {
-            return cutQuantityPerCirculation * cuttingType.price[0];
-        } else if (cutQuantityPerCirculation < PriceFakeDB.CUT_CIRCULATION_INDEX[1]) {
-            return cutQuantityPerCirculation * cuttingType.price[1];
-        } else if (cutQuantityPerCirculation < PriceFakeDB.CUT_CIRCULATION_INDEX[2]) {
-            return cutQuantityPerCirculation * cuttingType.price[2];
-        } else if (cutQuantityPerCirculation > PriceFakeDB.CUT_CIRCULATION_INDEX[3]) {
-            return cutQuantityPerCirculation * cuttingType.price[3];
+        List<Price> price = cuttingType.price;
+
+        if (cutQuantityPerCirculation < price.get(0).getCirculation()) {
+            return cutQuantityPerCirculation * cuttingType.price.get(0).getPrice();
+        } else if (cutQuantityPerCirculation < price.get(1).getCirculation()) {
+            return cutQuantityPerCirculation * cuttingType.price.get(1).getPrice();
+        } else if (cutQuantityPerCirculation < price.get(2).getCirculation()) {
+            return cutQuantityPerCirculation * cuttingType.price.get(2).getPrice();
+        } else if (cutQuantityPerCirculation > price.get(3).getCirculation()) {
+            return cutQuantityPerCirculation * cuttingType.price.get(3).getPrice();
         } else {
-            return cutQuantityPerCirculation * cuttingType.price[4];
+            return cutQuantityPerCirculation * cuttingType.price.get(4).getPrice();
         }
     }
 
     public double calcPrintPrice(double quantitySheetsPerCirculation, Material material) {
-        if (quantitySheetsPerCirculation < PriceFakeDB.PRINT_CIRCULATION_INDEX[0]) {
-            return quantitySheetsPerCirculation * material.getPrice()[0];
-        } else if (quantitySheetsPerCirculation < PriceFakeDB.PRINT_CIRCULATION_INDEX[1]) {
-            return quantitySheetsPerCirculation * material.getPrice()[1];
-        } else if (quantitySheetsPerCirculation < PriceFakeDB.PRINT_CIRCULATION_INDEX[2]) {
-            return quantitySheetsPerCirculation * material.getPrice()[2];
-        } else if (quantitySheetsPerCirculation < PriceFakeDB.PRINT_CIRCULATION_INDEX[3]) {
-            return quantitySheetsPerCirculation * material.getPrice()[4];
+        List<Price> price = material.getPrice();
+
+        if (quantitySheetsPerCirculation < price.get(0).getCirculation()) {
+            return quantitySheetsPerCirculation * price.get(0).getPrice();
+        } else if (quantitySheetsPerCirculation < price.get(1).getCirculation()) {
+            return quantitySheetsPerCirculation * price.get(1).getPrice();
+        } else if (quantitySheetsPerCirculation < price.get(2).getCirculation()) {
+            return quantitySheetsPerCirculation * price.get(2).getPrice();
+        } else if (quantitySheetsPerCirculation < price.get(3).getCirculation()) {
+            return quantitySheetsPerCirculation * price.get(3).getPrice();
         } else {
-            return quantitySheetsPerCirculation * material.getPrice()[4];
+            return quantitySheetsPerCirculation * price.get(4).getPrice();
         }
     }
 
