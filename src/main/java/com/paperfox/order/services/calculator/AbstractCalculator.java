@@ -22,7 +22,7 @@ public abstract class AbstractCalculator {
         } else if (cutQuantityPerCirculation > PriceFakeDB.CUT_CIRCULATION_INDEX[3]) {
             return cutQuantityPerCirculation * cuttingType.price[3];
         } else {
-            return 0d; // fixme
+            return cutQuantityPerCirculation * cuttingType.price[4];
         }
     }
 

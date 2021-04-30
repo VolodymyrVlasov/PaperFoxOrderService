@@ -36,6 +36,9 @@ public class FakeRepository { //implements IFakeCalculatorRepository
         return null;
     }
 
+
+
+
     public static Map<String, Integer> getFirstDeadlineTime() {
         Map<String, Integer> time = new HashMap<>();
         time.put("HOUR_OF_DAY", TimeScopesFakeDB.firstTimeHour);
