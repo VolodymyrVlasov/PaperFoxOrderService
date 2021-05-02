@@ -1,6 +1,14 @@
-import {CalculationParams, CuttingType, Material, MaterialType, PrintingProduct, ProductType} from "../../types/index.js";
+import {
+    CalculationParams,
+    CuttingType,
+    Material,
+    MaterialType,
+    PrintingProduct,
+    ProductType
+} from "../../types/index.js";
 import {ApiConfig} from "../../api/ApiConfig.js";
 import {OrderServiceApi} from "../../api/PaperFoxApi.js";
+import NumberFormatOptions = Intl.NumberFormatOptions;
 
 export class CalculatorContainer {
     //inputs
@@ -42,7 +50,7 @@ export class CalculatorContainer {
         })
     }
 
-    public init(){
+    public init() {
         let calculatorContainer: CalculatorContainer;
 
         OrderServiceApi.restGetRequest<CalculationParams>()
@@ -107,16 +115,21 @@ export class CalculatorContainer {
     public updateOrderForm(response: PrintingProduct) {
         if (response.size && response.size.diameter && response.quantity && response.totalPrice) {
             if (response.productionTime && response.quantityPerSheet) {
-                this.outputSize.innerHTML = response.size.diameter.toString();
                 this.outputSizePreview.innerHTML = response.size.diameter.toString()
-
                 this.inputCount.step = response.quantityPerSheet.toString()
-                this.inputCount.min = response.quantityPerSheet.toString()
-                this.inputCount.max = (response.quantityPerSheet * 30).toString()
-                this.outputCount.innerHTML = response.quantity.toString()
-
+                this.outputCount.innerHTML = response.quantity.toString() // fixme
                 this.outputPrice.innerHTML = response.totalPrice.toString()
-                this.outputDate.innerHTML = response.productionTime.toString()
+
+
+                let options: Intl.DateTimeFormatOptions = {
+                    day: "numeric", month: "long",
+                    hour: "2-digit", minute: "2-digit"
+                };
+
+                let date =  new Date(Date.parse(response.productionTime.toString()))
+                console.log(date)
+                console.log(date.toLocaleDateString("uk-UA", options) );
+                this.outputDate.innerHTML = date.toLocaleDateString("uk-UA", options)
             }
         }
     }
