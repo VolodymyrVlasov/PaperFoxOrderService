@@ -14,10 +14,10 @@ public class StandardShapeStickerCalculator extends AbstractCalculator implement
         double quantityPerSheet = calculateQuantityPerSheet(product.getMaterial().getPrintableArea(), product.getSize());
         double cutPerSheet = ((product.getSize().diameter / 1000) * 3.14) * quantityPerSheet;
         double quantitySheetsPerCirculation = Math.ceil(product.getQuantity() / quantityPerSheet);
-        double cutQuantityPerCirculation = Math.floor(cutPerSheet * quantitySheetsPerCirculation);
+        double cutQuantityPerCirculation = cutPerSheet * quantitySheetsPerCirculation;
         double printPrice = calcPrintPrice(quantitySheetsPerCirculation, product.getMaterial());
         double cutPrice = calcCutPrice(cutQuantityPerCirculation, product.getCuttingType());
-        double totalPrice = printPrice + cutPrice;
+        double totalPrice = printPrice + Math.ceil(cutPrice);
         double stickersQuantityPerCirculation = quantityPerSheet * quantitySheetsPerCirculation;
 
         return new PrintingProduct(product.getProductType(), stickersQuantityPerCirculation, totalPrice, cutPrice,

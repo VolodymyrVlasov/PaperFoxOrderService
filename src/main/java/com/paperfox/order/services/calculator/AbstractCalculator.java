@@ -1,6 +1,5 @@
 package com.paperfox.order.services.calculator;
 
-import com.paperfox.order.fakeDB.PriceFakeDB;
 import com.paperfox.order.models.materials.Material;
 import com.paperfox.order.models.materials.Price;
 import com.paperfox.order.models.types.CuttingType;
@@ -16,13 +15,13 @@ public abstract class AbstractCalculator {
     public double calcCutPrice(double cutQuantityPerCirculation, CuttingType cuttingType) {
         List<Price> price = cuttingType.price;
 
-        if (cutQuantityPerCirculation < price.get(0).getCirculation()) {
+        if (cutQuantityPerCirculation <= price.get(0).getCirculation()) {
             return cutQuantityPerCirculation * cuttingType.price.get(0).getPrice();
-        } else if (cutQuantityPerCirculation < price.get(1).getCirculation()) {
+        } else if (cutQuantityPerCirculation > price.get(0).getCirculation() && cutQuantityPerCirculation <= price.get(1).getCirculation()) {
             return cutQuantityPerCirculation * cuttingType.price.get(1).getPrice();
-        } else if (cutQuantityPerCirculation < price.get(2).getCirculation()) {
+        } else if (cutQuantityPerCirculation > price.get(1).getCirculation() && cutQuantityPerCirculation <= price.get(2).getCirculation()) {
             return cutQuantityPerCirculation * cuttingType.price.get(2).getPrice();
-        } else if (cutQuantityPerCirculation > price.get(3).getCirculation()) {
+        } else if (cutQuantityPerCirculation > price.get(2).getCirculation() && cutQuantityPerCirculation <= price.get(3).getCirculation()) {
             return cutQuantityPerCirculation * cuttingType.price.get(3).getPrice();
         } else {
             return cutQuantityPerCirculation * cuttingType.price.get(4).getPrice();
