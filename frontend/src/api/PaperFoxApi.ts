@@ -4,20 +4,27 @@ import {MaterialGroupType} from "../types/MaterialGroupType.js";
 import {PrintingProduct} from "../types/PrintingProduct.js";
 import {CalculationParams} from "../types/CalculationParams.js";
 
-export interface IOrderService {
+export interface IPaperFoxApi {
     calculateProduct(printingProduct: PrintingProduct): Promise<PrintingProduct>
-
-    getInitParams(materialGroupType: MaterialGroupType): CalculationParams
+    getInitParams(materialGroupType: MaterialGroupType): Promise<CalculationParams>
 }
 
-export class ApiBase {
-    public static serviceUrl: URL = new URL(ApiConfig.INIT_PARAMS_URL);
+export class PaperFoxApi implements IPaperFoxApi {
+    private static newRequest(
+        endpoint: string,
+        params?: URLSearchParams,
+        value?: any,
+        method="GET"
+    ): Request {
+        let url: URL = new URL(ApiConfig.URL + endpoint);
+        params?.forEach(((value, key) => {
+            url.searchParams.append(key, value);
+        }))
 
-    public static createPostRequest(endpoint: string, value: any): Request {
         return new Request(
-            `${ApiConfig.URL}${endpoint}`,
+            url.toString(),
             {
-                method: "POST",
+                method: method,
                 body: JSON.stringify(value),
                 headers: {
                     "Content-Type": "application/json"
@@ -26,32 +33,24 @@ export class ApiBase {
         )
     }
 
-    public static async restGetRequest<T>(materialGroupType: MaterialGroupType): Promise<ApiResponse<T>> {
-        let url: URL = new URL(`${ApiConfig.initParamsByType}${materialGroupType}`)
-        const response: ApiResponse<T> = await fetch(url.toString());
-        response.jsonBody = await response.json()
-        return response;
-    }
-
-    public static async restPostRequest<T>(request: Request): Promise<ApiResponse<T>> {
-        const response: ApiResponse<T> = await fetch(request);
-        response.jsonBody = await response.json()
-        return response;
-    }
-}
-
-export class Api implements IOrderService {
     public async calculateProduct(printingProduct: PrintingProduct): Promise<PrintingProduct> {
-        return this.WrapApiCall<PrintingProduct>(ApiBase.restPostRequest<PrintingProduct>(ApiBase.createPostRequest("calc", printingProduct.productType)))
+        return PaperFoxApi.WrapApiCall<PrintingProduct>("calc", undefined, printingProduct.productType);
     }
 
-    public async getInitParams(materialGroupType: MaterialGroupType): CalculationParams {
-        return undefined;
+    public async getInitParams(materialGroupType: MaterialGroupType): Promise<CalculationParams> {
+        return PaperFoxApi.WrapApiCall<CalculationParams>("getRenderParams", new URLSearchParams(`type=${materialGroupType}`));
     }
 
-    public async WrapApiCall<T>(call: () => Promise<ApiResponse<T>>): Promise<T> {
+    private static async WrapApiCall<T>(
+        endpoint: string,
+        params?: URLSearchParams,
+        value?: any,
+        method="GET"
+    ): Promise<T> {
+        let req: Request = PaperFoxApi.newRequest(endpoint, params, value, method);
+
         try {
-            const response: ApiResponse<T> = await call()
+            const response: ApiResponse<T> = await fetch(req);
             if (response.status != 200) {
                 throw new Error(`Server error: ${response.status} ${response.statusText} `)
             }
