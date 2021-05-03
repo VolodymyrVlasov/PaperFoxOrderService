@@ -100,7 +100,7 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
             };
 
         let request: Request = new Request(
-            `${ApiConfig.URL}calc`,
+            `${ApiConfig.URL}calc`,             // todo: endpoint
             {
                 method: "POST",
                 body: JSON.stringify(this.roundSticker),

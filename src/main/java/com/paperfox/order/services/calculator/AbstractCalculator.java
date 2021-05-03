@@ -161,44 +161,5 @@ public abstract class AbstractCalculator {
             }
         }
         return deadLine;
-
-//        GregorianCalendar today = new GregorianCalendar();
-//        GregorianCalendar deadLine = new GregorianCalendar();
-//        deadLine.set(Calendar.HOUR_OF_DAY, 18);
-//        deadLine.set(Calendar.MINUTE, 30);
-//        deadLine.set(Calendar.SECOND, 00);
-//
-//        if (productionTime == 1) {
-//            if (today.get(Calendar.HOUR_OF_DAY) > 12 && today.get(Calendar.DAY_OF_WEEK)
-//                    != Calendar.SATURDAY && today.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
-//                productionTime++;
-//                deadLine.set(Calendar.HOUR_OF_DAY, 14);
-//                if (today.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
-//                    deadLine.set(Calendar.HOUR_OF_DAY, 18);
-//                    productionTime--;
-//                } else if (today.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
-//                    if (today.get(Calendar.HOUR_OF_DAY) > 16) {
-//                        deadLine.set(Calendar.HOUR_OF_DAY, 18);
-//                    }
-//                    productionTime++;
-//                }
-//            }
-//            if (today.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-//                productionTime++;
-//            }
-//        }
-//        if (productionTime > 1) {
-//            deadLine.set(Calendar.HOUR_OF_DAY, 14);
-//            if (today.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
-//                productionTime += 2;
-//            } else if (today.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
-//                deadLine.set(Calendar.HOUR_OF_DAY, 18);
-//                productionTime++;
-//            } else if (today.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-//                productionTime++;
-//            }
-//        }
-//        deadLine.set(Calendar.DATE, today.get(Calendar.DATE) + productionTime);
-//        return deadLine;
     }
 }

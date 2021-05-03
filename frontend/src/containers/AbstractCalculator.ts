@@ -4,6 +4,21 @@ import {CalculationParams} from "../types/CalculationParams.js";
 import {PrintingProduct} from "../types/PrintingProduct.js";
 
 export abstract class AbstractCalculator {
+
+
+    abstract renderCalculatorForm(response: CalculationParams): void
+
+    abstract updateCalculatorFormParams(response: PrintingProduct): void
+
+
+    abstract addToCart(): void
+
+    abstract createProduct(): PrintingProduct
+
+    calculateProduct(printingProduct: PrintingProduct, ): void {
+
+    }
+
     initCalculatorFormParams(materialGroupType: MaterialGroupType): void {
         OrderServiceApi.restGetRequest<CalculationParams>(materialGroupType)
             .then(response => {
@@ -18,13 +33,5 @@ export abstract class AbstractCalculator {
             })
             .catch(error => console.log(error))
     }
-
-    abstract renderCalculatorForm(response: CalculationParams): void
-
-    abstract updateCalculatorFormParams(response: PrintingProduct): void
-
-    abstract calculateProduct(): void
-
-    abstract addToCart(): void
 
 }
