@@ -3,18 +3,14 @@ import {ApiResponse} from "./ApiResponse.js";
 import {MaterialGroupType} from "../types/MaterialGroupType.js";
 import {PrintingProduct} from "../types/PrintingProduct.js";
 import {CalculationParams} from "../types/CalculationParams.js";
+import {IPaperFoxApi} from "./IPaperFoxApi.js";
 
-export interface IPaperFoxApi {
-    calculateProduct(printingProduct: PrintingProduct): Promise<PrintingProduct>
-    getInitParams(materialGroupType: MaterialGroupType): Promise<CalculationParams>
-}
-
-export class PaperFoxApi implements IPaperFoxApi {
+class PaperFoxApi implements IPaperFoxApi {
     private static newRequest(
         endpoint: string,
         params?: URLSearchParams,
         value?: any,
-        method="GET"
+        method = "GET"
     ): Request {
         let url: URL = new URL(ApiConfig.URL + endpoint);
         params?.forEach(((value, key) => {
@@ -45,22 +41,27 @@ export class PaperFoxApi implements IPaperFoxApi {
         endpoint: string,
         params?: URLSearchParams,
         value?: any,
-        method="GET"
+        method = "GET"
     ): Promise<T> {
         let req: Request = PaperFoxApi.newRequest(endpoint, params, value, method);
 
         try {
             const response: ApiResponse<T> = await fetch(req);
+            // console.log(response.jsonBody)
             if (response.status != 200) {
                 throw new Error(`Server error: ${response.status} ${response.statusText} `)
             }
+            response.jsonBody = await response.json()
             if (response.jsonBody) {
-                return await response.json()
+                return response.jsonBody
             } else {
                 throw new Error("Empty jsonBody")
             }
-        } catch(error) {
-           return error
+        } catch (error) {
+            throw new Error(error)
         }
     }
 }
+
+export const Api = new PaperFoxApi()
+

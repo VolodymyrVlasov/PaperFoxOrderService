@@ -5,8 +5,6 @@ import {PrintingProduct} from "../../types/PrintingProduct.js";
 import {ProductType} from "../../types/ProductType.js";
 import {MaterialType} from "../../types/MaterialType.js";
 import {CuttingType} from "../../types/CuttingType.js";
-import {ApiConfig} from "../../api/ApiConfig.js";
-import {OrderServiceApi} from "../../api/PaperFoxApi.js";
 import {CalculationParams} from "../../types/CalculationParams.js";
 import {Material} from "../../types/Material.js";
 
@@ -24,12 +22,8 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
     outputDate: HTMLElement | undefined
     roundSticker?: PrintingProduct
 
-    initCalculatorFormParams(materialGroupType: MaterialGroupType): void {
-        super.initCalculatorFormParams(materialGroupType)
-    }
-
     renderCalculatorForm(response: CalculationParams): void {
-        console.log("render form method")
+        debugger
         let rootCnt = <HTMLDivElement>document.getElementById('calculator_root_cnt')
         rootCnt.innerHTML = RoundStickerDOM.part
 
@@ -45,20 +39,20 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
         this.outputPrice = <HTMLElement>document.getElementById("sticker_result_price")
         this.outputDate = <HTMLElement>document.getElementById("sticker_result_date")
 
-        this.inputCutType.addEventListener("change", () => this.calculateProduct())
-        this.inputMaterialType.addEventListener("change", () => this.calculateProduct())
+        this.inputCutType.addEventListener("change", () => super.calculateProduct(this.roundSticker))
+        this.inputMaterialType.addEventListener("change", () => super.calculateProduct(this.roundSticker))
         this.inputSize.addEventListener('input', (e) => {
             if (this.outputSize && this.inputSize) {
                 this.outputSize.innerHTML = this.inputSize.value
             }
-            this.calculateProduct()
+            super.calculateProduct(this.roundSticker)
         })
         this.inputCount.addEventListener('input', () => {
             if (this.outputCount && this.inputCount && this.outputSizePreview && this.inputSize) {
                 this.outputCount.innerHTML = this.inputCount.value
                 this.outputSizePreview.innerHTML = this.inputSize.value
             }
-            this.calculateProduct()
+            super.calculateProduct(this.roundSticker)
         })
 
         const materialType: Material[] = response.materialType
@@ -82,12 +76,34 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
             option.value = key
             cuttingTypeMapSelect.appendChild(option)
         });
-        this.calculateProduct()
+
+        this.roundSticker = this.createProduct()
+        if (this.roundSticker)
+            this.updateCalculatorFormParams(this.roundSticker)
     }
 
-    calculateProduct(): void {
+    updateCalculatorFormParams(product: PrintingProduct): void {
+        console.log("update calculator form method")
+        if (product.size && product.size.diameter && product.quantity && product.totalPrice &&
+            product.productionTime && product.quantityPerSheet && this.outputSizePreview && this.inputCount &&
+            this.outputCount && this.outputPrice && this.outputDate) {
+            this.outputSizePreview.innerHTML = product.size.diameter.toString() + " мм"
+            this.inputCount.step = product.quantityPerSheet.toString()
+            this.outputCount.innerHTML = product.quantity.toString()
+            this.outputPrice.innerHTML = product.totalPrice.toString()
+
+            let options: Intl.DateTimeFormatOptions = {
+                day: "numeric", month: "long",
+                hour: "2-digit", minute: "2-digit"
+            };
+            this.outputDate.innerHTML = new Date(Date.parse(product.productionTime.toString()))
+                .toLocaleDateString("uk-UA", options)
+        }
+    }
+
+    createProduct(): PrintingProduct | undefined {
         if (this.inputCount && this.inputMaterialType && this.inputCutType && this.inputSize)
-            this.roundSticker = {
+            return {
                 productType: ProductType.STICKER,
                 quantity: Number.parseFloat(this.inputCount.value),
                 material: {
@@ -97,53 +113,9 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
                 size: {
                     diameter: Number.parseFloat(this.inputSize.value),
                 }
-            };
-
-        let request: Request = new Request(
-            `${ApiConfig.URL}calc`,             // todo: endpoint
-            {
-                method: "POST",
-                body: JSON.stringify(this.roundSticker),
-                headers: {
-                    "Content-Type": "application/json"
-                }
             }
-        )
-
-        OrderServiceApi.restPostRequest<PrintingProduct>(request)
-            .then((response) => {
-                if (response.status != 200) {
-                    throw new Error(`Server error: ${response.status} ${response.statusText} `)
-                }
-                if (response.jsonBody) {
-                    this.updateCalculatorFormParams(response.jsonBody)
-                } else {
-                    throw new Error("Empty jsonBody")
-                }
-            })
-            .catch((err) => console.log(err.toString()))
-    }
-
-    updateCalculatorFormParams(response: PrintingProduct): void {
-        console.log("update calculator form method")
-        if (response.size && response.size.diameter && response.quantity && response.totalPrice &&
-            response.productionTime && response.quantityPerSheet && this.outputSizePreview && this.inputCount &&
-            this.outputCount && this.outputPrice && this.outputDate) {
-            this.outputSizePreview.innerHTML = response.size.diameter.toString() + " мм"
-            this.inputCount.step = response.quantityPerSheet.toString()
-            this.outputCount.innerHTML = response.quantity.toString()
-            this.outputPrice.innerHTML = response.totalPrice.toString()
-
-            let options: Intl.DateTimeFormatOptions = {
-                day: "numeric", month: "long",
-                hour: "2-digit", minute: "2-digit"
-            };
-            this.outputDate.innerHTML = new Date(Date.parse(response.productionTime.toString()))
-                .toLocaleDateString("uk-UA", options)
-        }
     }
 
     addToCart(): void {
     }
-
 }

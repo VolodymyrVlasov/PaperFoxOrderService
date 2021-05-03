@@ -1,6 +1,5 @@
 // import {CalculatorContainer} from "./CalculatorContainer.js"; // привязка файла index.ts с экпортом типов к названию папки
 import {RoundStickerCalculatorContainer} from "./RoundStickerCalculatorContainer.js";
-import {SquaredStickerCalculator} from "./SquaredStickerCalculator.js";
 import {MaterialGroupType} from "../../types/MaterialGroupType.js";
 
 // new CalculatorContainer().init()
@@ -14,7 +13,7 @@ roundStickerBtn.addEventListener('click', () => {
 })
 
 squaredStickerBtn.addEventListener('click', ()=>{
-    new SquaredStickerCalculator().initCalculatorFormParams(MaterialGroupType.SELF_ADHESIVE)
+    // new SquaredStickerCalculator().initCalculatorFormParams(MaterialGroupType.SELF_ADHESIVE)
 })
 
 

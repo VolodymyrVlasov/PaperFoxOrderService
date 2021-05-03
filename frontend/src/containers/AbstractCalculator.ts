@@ -1,5 +1,5 @@
 import {MaterialGroupType} from "../types/MaterialGroupType.js";
-import {OrderServiceApi} from "../api/PaperFoxApi.js";
+import {Api} from "../api/PaperFoxApi.js";
 import {CalculationParams} from "../types/CalculationParams.js";
 import {PrintingProduct} from "../types/PrintingProduct.js";
 
@@ -13,25 +13,18 @@ export abstract class AbstractCalculator {
 
     abstract addToCart(): void
 
-    abstract createProduct(): PrintingProduct
+    abstract createProduct(): PrintingProduct | undefined
 
-    calculateProduct(printingProduct: PrintingProduct, ): void {
-
+    public calculateProduct(printingProduct: PrintingProduct | undefined): void {
+        if (printingProduct)
+            Api.calculateProduct(printingProduct)
+                .then(this.updateCalculatorFormParams)
+                .catch(er => console.log(er))
     }
 
-    initCalculatorFormParams(materialGroupType: MaterialGroupType): void {
-        OrderServiceApi.restGetRequest<CalculationParams>(materialGroupType)
-            .then(response => {
-                if (response.status != 200) {
-                    throw new Error(`Server error: ${response.status} ${response.statusText} `)
-                }
-                if (response.jsonBody) {
-                    this.renderCalculatorForm(response.jsonBody)
-                } else {
-                    throw new Error("Empty jsonBody")
-                }
-            })
-            .catch(error => console.log(error))
+    public initCalculatorFormParams(materialGroupType: MaterialGroupType): void {
+        Api.getInitParams(materialGroupType)
+            .then(this.renderCalculatorForm)
+            .catch(er => console.log(er))
     }
-
 }
