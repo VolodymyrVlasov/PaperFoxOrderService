@@ -1,12 +1,14 @@
 import {AbstractCalculator} from "../AbstractCalculator.js";
-import {MaterialGroupType} from "../../types/MaterialGroupType.js";
-import {RoundStickerDOM} from "./RoundStickerDOM.js";
-import {PrintingProduct} from "../../types/PrintingProduct.js";
-import {ProductType} from "../../types/ProductType.js";
-import {MaterialType} from "../../types/MaterialType.js";
-import {CuttingType} from "../../types/CuttingType.js";
-import {CalculationParams} from "../../types/CalculationParams.js";
-import {Material} from "../../types/Material.js";
+import {
+    CalculationParams,
+    CuttingType,
+    Material,
+    MaterialGroupType,
+    MaterialType,
+    PrintingProduct,
+    ProductType,
+    DOMRoundSticker
+} from "./index.js";
 
 export class RoundStickerCalculatorContainer extends AbstractCalculator {
     //inputs
@@ -22,11 +24,10 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
     outputDate: HTMLElement | undefined
     roundSticker?: PrintingProduct
 
-    renderCalculatorForm(response: CalculationParams): void {
-        debugger
+    constructor() {
+        super();
         let rootCnt = <HTMLDivElement>document.getElementById('calculator_root_cnt')
-        rootCnt.innerHTML = RoundStickerDOM.part
-
+        rootCnt.innerHTML = DOMRoundSticker.part
         this.inputSize = <HTMLInputElement>document.getElementById("sticker_size_input")
         this.outputSizePreview = <HTMLElement>document.getElementById("sticker_preview_size_label")
         this.inputCount = <HTMLInputElement>document.getElementById("sticker_quantity_input")
@@ -38,23 +39,25 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
         this.outputCount = <HTMLElement>document.getElementById("sticker_quantity_value")
         this.outputPrice = <HTMLElement>document.getElementById("sticker_result_price")
         this.outputDate = <HTMLElement>document.getElementById("sticker_result_date")
-
-        this.inputCutType.addEventListener("change", () => super.calculateProduct(this.roundSticker))
-        this.inputMaterialType.addEventListener("change", () => super.calculateProduct(this.roundSticker))
+        this.inputCutType.addEventListener("change", () => super.calculateProduct(this.createProduct()))
+        this.inputMaterialType.addEventListener("change", () => super.calculateProduct(this.createProduct()))
         this.inputSize.addEventListener('input', (e) => {
             if (this.outputSize && this.inputSize) {
                 this.outputSize.innerHTML = this.inputSize.value
             }
-            super.calculateProduct(this.roundSticker)
+            super.calculateProduct(this.createProduct())
         })
         this.inputCount.addEventListener('input', () => {
             if (this.outputCount && this.inputCount && this.outputSizePreview && this.inputSize) {
                 this.outputCount.innerHTML = this.inputCount.value
                 this.outputSizePreview.innerHTML = this.inputSize.value
             }
-            super.calculateProduct(this.roundSticker)
+            super.calculateProduct(this.createProduct())
         })
+        super.initCalculatorFormParams(MaterialGroupType.SELF_ADHESIVE)
+    }
 
+    renderCalculatorForm(response: CalculationParams): void {
         const materialType: Material[] = response.materialType
         const cuttingType: CuttingType = response.cuttingType
 
@@ -76,14 +79,10 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
             option.value = key
             cuttingTypeMapSelect.appendChild(option)
         });
-
-        this.roundSticker = this.createProduct()
-        if (this.roundSticker)
-            this.updateCalculatorFormParams(this.roundSticker)
+        this.calculateProduct(this.createProduct())
     }
 
     updateCalculatorFormParams(product: PrintingProduct): void {
-        console.log("update calculator form method")
         if (product.size && product.size.diameter && product.quantity && product.totalPrice &&
             product.productionTime && product.quantityPerSheet && this.outputSizePreview && this.inputCount &&
             this.outputCount && this.outputPrice && this.outputDate) {
@@ -102,7 +101,7 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
     }
 
     createProduct(): PrintingProduct | undefined {
-        if (this.inputCount && this.inputMaterialType && this.inputCutType && this.inputSize)
+        if (this.inputCount && this.inputMaterialType && this.inputCutType && this.inputSize) {
             return {
                 productType: ProductType.STICKER,
                 quantity: Number.parseFloat(this.inputCount.value),
@@ -114,6 +113,7 @@ export class RoundStickerCalculatorContainer extends AbstractCalculator {
                     diameter: Number.parseFloat(this.inputSize.value),
                 }
             }
+        }
     }
 
     addToCart(): void {

@@ -48,8 +48,7 @@
     align-items: center;
     /*flex-wrap: wrap;*/
     /*border: 1px solid gray;*/
-    height: 170px;
-    margin-top: -1px;
+    height: auto;
     padding-top: 50px;
     padding-bottom: 50px;
 

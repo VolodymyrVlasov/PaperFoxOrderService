@@ -1,7 +1,7 @@
-import {MaterialGroupType} from "../types/MaterialGroupType.js";
-import {Api} from "../api/PaperFoxApi.js";
-import {CalculationParams} from "../types/CalculationParams.js";
-import {PrintingProduct} from "../types/PrintingProduct.js";
+import {MaterialGroupType} from "../../types/MaterialGroupType.js";
+import {Api} from "../../api/PaperFoxApi.js";
+import {CalculationParams} from "../../types/CalculationParams.js";
+import {PrintingProduct} from "../../types/PrintingProduct.js";
 
 export abstract class AbstractCalculator {
 
@@ -18,13 +18,14 @@ export abstract class AbstractCalculator {
     public calculateProduct(printingProduct: PrintingProduct | undefined): void {
         if (printingProduct)
             Api.calculateProduct(printingProduct)
-                .then(this.updateCalculatorFormParams)
+                .then(response => this.updateCalculatorFormParams(response))
                 .catch(er => console.log(er))
     }
 
     public initCalculatorFormParams(materialGroupType: MaterialGroupType): void {
         Api.getInitParams(materialGroupType)
-            .then(this.renderCalculatorForm)
+
+            .then(response => this.renderCalculatorForm(response))
             .catch(er => console.log(er))
     }
 }

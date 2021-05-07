@@ -29,7 +29,9 @@ h1 {
 .row {
     display: flex;
     flex-direction: row;
+    width: auto;
     justify-content: center;
+    width: 100%;
 }
 
 .section_width {
@@ -73,3 +75,7 @@ label {
     color: white;
     cursor: pointer;
 }
+
+
+/*# sourceMappingURL=style.css.map */
+

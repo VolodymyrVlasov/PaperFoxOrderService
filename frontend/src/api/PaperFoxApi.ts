@@ -4,6 +4,7 @@ import {MaterialGroupType} from "../types/MaterialGroupType.js";
 import {PrintingProduct} from "../types/PrintingProduct.js";
 import {CalculationParams} from "../types/CalculationParams.js";
 import {IPaperFoxApi} from "./IPaperFoxApi.js";
+import {ProductType} from "../types/ProductType";
 
 class PaperFoxApi implements IPaperFoxApi {
     private static newRequest(
@@ -30,7 +31,7 @@ class PaperFoxApi implements IPaperFoxApi {
     }
 
     public async calculateProduct(printingProduct: PrintingProduct): Promise<PrintingProduct> {
-        return PaperFoxApi.WrapApiCall<PrintingProduct>("calc", undefined, printingProduct.productType);
+        return PaperFoxApi.WrapApiCall<PrintingProduct>("calc", undefined, printingProduct, "POST");
     }
 
     public async getInitParams(materialGroupType: MaterialGroupType): Promise<CalculationParams> {

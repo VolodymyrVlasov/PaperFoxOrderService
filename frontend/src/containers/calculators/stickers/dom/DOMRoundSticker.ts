@@ -1,4 +1,7 @@
-export const RoundStickerDOM = {
+import {DOMCalculatorResult} from "./DOMCalculatorResult.js";
+
+
+export const DOMRoundSticker = {
     part: `
 <div class="sticker_root_cnt">
     <div class="sticker_input_cnt">
@@ -41,24 +44,9 @@ export const RoundStickerDOM = {
         </div>
     </div>
 </div>
-<div class="calculator_result">
-    <div>
-        <div class="sticker_result">
-            <span>Вартість: </span>
-            <span id="sticker_result_price" style="font-weight: bold"></span>
-            <span> грн</span>
-        </div>
-        <div class="sticker_result"><span>Орієнтовна дата готовності: </span>
-            <span id="sticker_result_date" style="font-weight: bold"></span>
-        </div>
-    </div>
-    <div>
-        <input class="file_input" id="sticker_file" type="file">
-    </div>
-    <div>
-        <buttton class="btn_add_to_card" id="calc_round_sticker">Додати у кошик</buttton>
-    </div>
-</div>
+
+
+${DOMCalculatorResult.part}
 `
 }
 
