@@ -62,7 +62,7 @@ export const DOMSquaredSticker = {
                       </div>
                        <div class="row">
                           <div>
-                            <input class="file_input" id="sticker_file" type="file">
+                            <input class="file_input" id="file" type="file">
                           </div>
                        </div>
                  

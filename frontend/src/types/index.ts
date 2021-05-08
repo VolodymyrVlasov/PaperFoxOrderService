@@ -11,6 +11,7 @@ import { ProductType } from "./ProductType.js";
 import { Size } from "./Size.js";
 import { CalculationParams } from "./CalculationParams.js";
 import { PaymentMethodType } from "./PaymentMethodType.js";
+import { FileUploadResponse } from "./FileUploadResponse.js";
 
 
 
@@ -28,4 +29,5 @@ export {
     Size   ,
     CalculationParams,
     PaymentMethodType,
+    FileUploadResponse
 }

@@ -9,6 +9,7 @@ import {
     PrintingProduct,
     ProductType
 } from "./index.js";
+import {Api} from "../../../api/PaperFoxApi.js";
 
 
 export class SquaredStickerCalculator extends AbstractCalculator {
@@ -27,6 +28,8 @@ export class SquaredStickerCalculator extends AbstractCalculator {
     outputCount: HTMLElement | undefined
     outputPrice: HTMLElement | undefined
     outputDate: HTMLElement | undefined
+    //file
+    file: HTMLInputElement | undefined
 
     //preview
     preview: HTMLElement | undefined
@@ -36,6 +39,9 @@ export class SquaredStickerCalculator extends AbstractCalculator {
         super();
         let rootCnt = <HTMLDivElement>document.getElementById('calculator_root_cnt')
         rootCnt.innerHTML = DOMSquaredSticker.part
+
+        this.file = <HTMLInputElement>document.getElementById('file')
+
         this.inputSizeWidth = <HTMLInputElement>document.getElementById("input_size_width")
         this.inputSizeHeight = <HTMLInputElement>document.getElementById("input_size_height")
         this.inputSizeCornerRadius = <HTMLInputElement>document.getElementById("input_size_corner_radius")
@@ -57,10 +63,14 @@ export class SquaredStickerCalculator extends AbstractCalculator {
         this.outputPrice = <HTMLElement>document.getElementById("sticker_result_price")
         this.outputDate = <HTMLElement>document.getElementById("sticker_result_date")
 
+        this.preview = <HTMLElement>document.getElementById("file_preview_cnt")
+
+        this.file.addEventListener('change', (e) => {
+            this.uploadFile(this.file?.files)
+        })
+
         this.inputCutType.addEventListener("change", () => super.calculateProduct(this.createProduct()))
         this.inputMaterialType.addEventListener("change", () => super.calculateProduct(this.createProduct()))
-
-        this.preview = <HTMLElement>document.getElementById("file_preview_cnt")
 
         this.inputSizeWidth.addEventListener('input', (e) => {
             this.updatePreview()
@@ -104,7 +114,7 @@ export class SquaredStickerCalculator extends AbstractCalculator {
             let previewImageCnt = document?.getElementById('drag_drop_area')
             let cutPreview = document?.getElementById('file_preview_cnt_input_wraper_drop_area_design_cut')
             this.preview.style.transitionDuration = "0.4s"
-            this.inputSizeCornerRadius.max = String( Math.floor(width / 2))
+            this.inputSizeCornerRadius.max = String(Math.floor(width / 2))
             if (width == height) {
                 this.preview.style.height = `100%`
                 this.preview.style.width = `${this.preview.offsetHeight}px`
@@ -200,6 +210,25 @@ export class SquaredStickerCalculator extends AbstractCalculator {
         }
     }
 
+    private uploadFile(files: FileList | undefined | null) {
+        if (files == undefined) {
+            // todo
+            throw new Error("file not loaded")
+        }
+
+        let file: File = files[0]
+        // todo rename file for product parameters
+        let formData = new FormData()
+        formData.append('file', file)
+        Api.uploadFile(formData)
+            .then((data) => {
+                let preview: File = <File>data.get('file')
+                let filePath: string = <string>data.get('filePath')
+            })
+    }
+
     addToCart(): void {
     }
+
+
 }
