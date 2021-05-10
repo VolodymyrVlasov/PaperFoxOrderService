@@ -82,6 +82,9 @@ class PaperFoxApi implements IPaperFoxApi {
     }
 
 
+    //http://62.244.50.147:9000/files/13272c07-3a4a-4bc0-8a43-021bf0d1cd73_cupo.jpg
+
+
 }
 
 export const Api = new PaperFoxApi()

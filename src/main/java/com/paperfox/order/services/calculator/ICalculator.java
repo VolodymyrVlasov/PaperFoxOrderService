@@ -13,6 +13,7 @@ public interface ICalculator {
     PrintingProduct calcProduct(PrintingProduct product);
 
     double calculateQuantityPerSheet(Size printableArea, ProductSize size);
+    double calculateCutPerSheet(ProductSize size, double quantityPerSheet);
 
 
 }

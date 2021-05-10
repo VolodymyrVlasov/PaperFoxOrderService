@@ -173,6 +173,7 @@ export class SquaredStickerCalculator extends AbstractCalculator {
     }
 
     updateCalculatorFormParams(product: PrintingProduct): void {
+        console.log(product)
         if (product.quantity && product.totalPrice &&
             product.productionTime && product.quantityPerSheet && this.inputCount &&
             this.outputCount && this.outputPrice && this.outputDate) {
@@ -222,9 +223,19 @@ export class SquaredStickerCalculator extends AbstractCalculator {
         formData.append('file', file)
         Api.uploadFile(formData)
             .then((data) => {
-                let preview: File = <File>data.get('file')
-                let filePath: string = <string>data.get('filePath')
+                data.forEach((value, key, parent) => {
+                    console.log(key, value)
+                })
+                let preview: string = <string>data.get('filePath')
+                return preview
             })
+            .then((preview) => {
+                let previewCnt = <HTMLDivElement>document.getElementById('drag_drop_area')
+                if (previewCnt) {
+                    previewCnt.style.backgroundImage = `url("http://62.244.50.147:9000/files/${preview}")`
+                }
+            })
+            .catch((error) => console.log(error))
     }
 
     addToCart(): void {
