@@ -57,30 +57,16 @@ public class PriceFakeDB {
         plotterCuttingPrice.add(new Price(10, 6d));            // <= 10
         plotterCuttingPrice.add(new Price(50, 4d));            // > 10 && <= 50
         plotterCuttingPrice.add(new Price(100, 3d));           // > 50 && <= 100
-        plotterCuttingPrice.add(new Price(250, 2.5));          // > 100 && <= 250
-        plotterCuttingPrice.add(new Price(251, 1.5));          // >= 251
+        plotterCuttingPrice.add(new Price(500, 2.5));          // > 100 && <= 500
+        plotterCuttingPrice.add(new Price(501, 1.5));          // >= 501
 
         throughPlotterCuttingPrice = new ArrayList<>();
         throughPlotterCuttingPrice.add(new Price(10, 15d));
         throughPlotterCuttingPrice.add(new Price(50, 10d));
         throughPlotterCuttingPrice.add(new Price(100, 6d));
-        throughPlotterCuttingPrice.add(new Price(250, 5d));
-        throughPlotterCuttingPrice.add(new Price(251, 4d));
-
+        throughPlotterCuttingPrice.add(new Price(500, 5d));
+        throughPlotterCuttingPrice.add(new Price(501, 4d));
     }
-
-    public static final int[] RAFLATAC_PRINT_PRICE = new int[]{28, 24, 19, 17, 14};
-    public static final int[] RAFLATAC_LAMINATED_PRINT_PRICE = new int[]{52, 43, 36, 31, 26};
-    public static final int[] RAFLATAC_PET_PRINT_PRICE = new int[]{60, 48, 42, 36, 30};
-    public static final int[] RITRAMA_LAMINATED_PRINT_PRICE = new int[]{70, 56, 49, 42, 35};
-    public static final int[] RITRAMA_TRANSPARENT_PRINT_PRICE = new int[]{64, 51, 45, 38, 32};
-
-    public static final double[] PLOTTER_CUTTING_PRICE = new double[]{6, 4, 3, 2.5, 1.5};
-    public static final double[] THROUGH_PLOTTER_CUTTING_PRICE = new double[]{15, 10, 6, 5, 4};
-
-    public static final int[] PRINT_CIRCULATION_INDEX = new int[]{11, 21, 51, 101, 100};        //тираж
-
-    public static final int[] CUT_CIRCULATION_INDEX = new int[]{10, 50, 100, 250};              //тираж
 }
 
 

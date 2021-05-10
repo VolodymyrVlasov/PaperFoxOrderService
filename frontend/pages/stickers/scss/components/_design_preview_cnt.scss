@@ -1,0 +1,82 @@
+.file_preview_cnt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  position: relative;
+  animation-timing-function: ease;
+  input {
+    display: none;
+  }
+
+  label {
+    color: gray;
+    margin-left: 45px;
+    margin-top: 45px;
+    z-index: 999;
+  }
+
+  &_input_wraper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+
+    &_drop_area_design {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 5px;
+      background-image: url('../img/test_sticker_preview.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100% 100%;
+      border-radius: 20px;
+
+      &_cut {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        border: 1px dashed black;
+        box-sizing: border-box;
+
+        &_width_size_cnt {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          top: -55px;
+          width: 100%;
+        }
+
+        &_height_size_cnt {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          left: -55px;
+          top: 0;
+          height: 100%;
+        }
+
+        &_corner_radius_cnt {
+          position: absolute;
+          left: -45px;
+          top: -45px;
+          width: 25px;
+          height: 25px;
+        }
+      }
+    }
+  }
+}

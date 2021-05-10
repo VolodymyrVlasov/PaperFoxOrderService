@@ -7,7 +7,6 @@ import com.paperfox.order.models.materials.MaterialType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.paperfox.order.fakeDB.PriceFakeDB.RAFLATAC_PRINT_PRICE;
 import static com.paperfox.order.fakeDB.PrintSizesFakeDB.RAFLATAC_PRINTABLE_SIZE;
 
 public class MaterialsFakeDB {

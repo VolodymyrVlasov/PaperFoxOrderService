@@ -5,9 +5,6 @@ import com.paperfox.order.models.materials.Price;
 
 import java.util.List;
 
-import static com.paperfox.order.fakeDB.PriceFakeDB.PLOTTER_CUTTING_PRICE;
-import static com.paperfox.order.fakeDB.PriceFakeDB.THROUGH_PLOTTER_CUTTING_PRICE;
-
 public enum CuttingType {
     //    HAND_CUTTING(HAND_CUTTING_PRICE,""),
     PLOTTER_CUTTING(PriceFakeDB.plotterCuttingPrice, "Контурна на аркушах А3"),
