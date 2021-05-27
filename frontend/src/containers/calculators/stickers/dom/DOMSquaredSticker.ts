@@ -62,7 +62,7 @@ export const DOMSquaredSticker = {
                       </div>
                        <div class="row">
                           <div>
-                            <input class="file_input" id="file" type="file">
+                            <input class="file_input" id="file" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" >
                           </div>
                        </div>
                  

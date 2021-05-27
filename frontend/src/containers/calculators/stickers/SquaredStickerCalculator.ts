@@ -219,8 +219,14 @@ export class SquaredStickerCalculator extends AbstractCalculator {
 
         let file: File = files[0]
         // todo rename file for product parameters
+        let temp: Array<string> = file.name.split(".")
+        if (this.inputSizeHeight && this.inputSizeCornerRadius && this.inputCount && this.inputMaterialType && this.inputCutType && this.inputSizeWidth) {
+            let fileName =
+                `${this.inputSizeWidth.value}x${this.inputSizeHeight.value}x${this.inputSizeCornerRadius.value}-${this.inputMaterialType.value}-${this.inputCutType.value}-${this.inputCount.value}`
+            let targetFile: File = new File([file], `${fileName}.${temp[temp.length - 1]}`)
+
         let formData = new FormData()
-        formData.append('file', file)
+        formData.append('file', targetFile)
         Api.uploadFile(formData)
             .then((data) => {
                 data.forEach((value, key, parent) => {
@@ -236,6 +242,7 @@ export class SquaredStickerCalculator extends AbstractCalculator {
                 }
             })
             .catch((error) => console.log(error))
+        }
     }
 
     addToCart(): void {
