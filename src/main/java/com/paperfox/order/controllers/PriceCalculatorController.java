@@ -24,6 +24,7 @@ public class PriceCalculatorController {
 
     @GetMapping(value = "/api/getRenderParams")
     private CalculatorParams getRenderParams(@RequestParam String type) throws Exception {
+        logger.info(type);
         return calculatorService.getRenderParamsByType(type);
     }
 }

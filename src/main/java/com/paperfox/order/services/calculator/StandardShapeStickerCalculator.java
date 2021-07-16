@@ -13,8 +13,8 @@ public class StandardShapeStickerCalculator extends AbstractCalculator implement
 
     @Override
     public PrintingProduct calcProduct(PrintingProduct product) {
-        double quantityPerSheet = calculateQuantityPerSheet(product.getMaterial().getPrintableArea(), product.getSize());
-        double cutPerSheet = calculateCutPerSheet(product.getSize(), quantityPerSheet);
+        double quantityPerSheet = calculateQuantityPerSheet(product.getMaterial().getPrintableArea(), product.getProductSize());
+        double cutPerSheet = calculateCutPerSheet(product.getProductSize(), quantityPerSheet);
         double quantitySheetsPerCirculation = Math.ceil(product.getQuantity() / quantityPerSheet);
         double cutQuantityPerCirculation = cutPerSheet * quantitySheetsPerCirculation;
         double printPrice = calcPrintPrice(quantitySheetsPerCirculation, product.getMaterial());
@@ -32,11 +32,11 @@ public class StandardShapeStickerCalculator extends AbstractCalculator implement
         stringBuilder.append("Стоимость порезки: " + cutPrice + " грн\n");
         stringBuilder.append("Общая стоимость: " + totalPrice + " грн\n");
 
-        logger.info(stringBuilder.toString());
+//        logger.info(stringBuilder.toString());
 
-        return new PrintingProduct(product.getProductType(), stickersQuantityPerCirculation, totalPrice, cutPrice,
-                printPrice, quantityPerSheet, product.getSize(), product.getMaterial(), product.getCuttingType(),
-                getProductionDate(product.getMaterial().getProductionTime()));
+        return new PrintingProduct(product.getProductGroup(), stickersQuantityPerCirculation, totalPrice, cutPrice,
+                printPrice, quantityPerSheet, product.getProductSize(), product.getMaterial(), product.getCuttingType(),
+                getProductionDate(product.getMaterial().getProductionTime()), product.getFile());
     }
 
 
@@ -54,7 +54,7 @@ public class StandardShapeStickerCalculator extends AbstractCalculator implement
             double vertical = ((Math.floor(printableArea.width / (productSize.height + 2))) *
                     (Math.floor(printableArea.height / (productSize.width + 2))));
 
-            System.out.println("\nvertical: " + vertical + " psc/sheet, horizontal: " + horizontal + " psc/sheet\n");
+//            System.out.println("\nvertical: " + vertical + " psc/sheet, horizontal: " + horizontal + " psc/sheet\n");
             quantityPerSheet = Math.max(horizontal, vertical);
         } else {
             double horizontal = (Math.floor(printableArea.width / (productSize.width))) *
