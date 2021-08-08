@@ -62,7 +62,7 @@ export const DOMSquaredSticker = {
                       </div>
                        <div class="row">
                           <div>
-                            <input class="file_input" id="file" type="file">
+                            <input class="file_input" id="file" type="file" accept="image/jpeg, image/jpg, image/png, application/pdf" >
                           </div>
                        </div>
                  
@@ -71,8 +71,6 @@ export const DOMSquaredSticker = {
 
                 <div class="preview_cnt">
                   <div class="file_preview_cnt" id="file_preview_cnt">
-<!--                    <input type="file" id="file_input">-->
-<!--                    <label for="file_input"><strong>Choose a file</strong><span> or drag it here</span></label>-->
                     <div class="file_preview_cnt_input_wraper">
         
                           <div class="file_preview_cnt_input_wraper_drop_area_design" id="drag_drop_area">

@@ -1,13 +1,10 @@
 package com.paperfox.order.models.types;
 
 public enum ProductType {
-    STICKER("Наліпка"),
-    BIZ_CARD("Візитівки"),
-    FLYER("Флаєр"),
-    POSTER ("Постер"),
-    DRAWING ("Креслення"),
-    PHOTO ("Фото"),
-    MAGNET("Магніт");
+    ROUND ("ROUND"),
+    SQUARED ("SQUARED"),
+    FIGURE  ("FIGURE"),
+    STICKER_SET  ("STICKER_SET");
 
     public final String name;
 

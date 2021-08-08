@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 public class CalculatorParams {
-    Map<String, String> cuttingType;
+    Map<String, Integer> cuttingType;
     List<Material> materialType;
 
-    public CalculatorParams(List<Material> materialType, Map<String, String> cuttingType) {
+    public CalculatorParams(List<Material> materialType, Map<String, Integer> cuttingType) {
         this.cuttingType = cuttingType;
         this.materialType = materialType;
     }
 
-    public Map<String, String> getCuttingType() {
+    public Map<String, Integer> getCuttingType() {
         return cuttingType;
     }
 
