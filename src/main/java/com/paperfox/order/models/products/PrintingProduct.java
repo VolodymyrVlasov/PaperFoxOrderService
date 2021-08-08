@@ -19,12 +19,13 @@ public class PrintingProduct {
     private Material material;
     private CuttingType cuttingType;
     private GregorianCalendar productionTime;
-    private String file;
+    //    private String file;
+    private String productToken;
+    private String previewFileName;
 
-    public PrintingProduct(
-            ProductGroup productGroup, double quantity, double totalPrice, double cutPrice, double printPrice,
-            double quantityPerSheet, ProductSize productSize, Material material, CuttingType cuttingType,
-            GregorianCalendar productionTime, String file) {
+    public PrintingProduct(ProductGroup productGroup, double quantity, double totalPrice, double cutPrice,
+                           double printPrice, double quantityPerSheet, ProductSize productSize, Material material,
+                           CuttingType cuttingType, GregorianCalendar productionTime, String productToken, String previewFileName) {
         this.productGroup = productGroup;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
@@ -35,7 +36,8 @@ public class PrintingProduct {
         this.material = material;
         this.cuttingType = cuttingType;
         this.productionTime = productionTime;
-        this.file = file;
+        this.productToken = productToken;
+        this.previewFileName = previewFileName;
     }
 
     public ProductGroup getProductGroup() {
@@ -118,12 +120,20 @@ public class PrintingProduct {
         this.productionTime = productionTime;
     }
 
-    public String getFile() {
-        return file;
+    public String getProductToken() {
+        return productToken;
     }
 
-    public void setFile(String file) {
-        this.file = file;
+    public void setProductToken(String productToken) {
+        this.productToken = productToken;
+    }
+
+    public String getPreviewFileName() {
+        return previewFileName;
+    }
+
+    public void setPreviewFileName(String previewFileName) {
+        this.previewFileName = previewFileName;
     }
 
     @Override
@@ -139,7 +149,8 @@ public class PrintingProduct {
                 ", material=" + material +
                 ", cuttingType=" + cuttingType +
                 ", productionTime=" + productionTime +
-                ", file=" + file +
+                ", productToken='" + productToken + '\'' +
+                ", previewFileName='" + previewFileName + '\'' +
                 '}';
     }
 }

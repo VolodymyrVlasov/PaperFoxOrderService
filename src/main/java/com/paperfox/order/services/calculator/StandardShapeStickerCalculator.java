@@ -36,7 +36,7 @@ public class StandardShapeStickerCalculator extends AbstractCalculator implement
 
         return new PrintingProduct(product.getProductGroup(), stickersQuantityPerCirculation, totalPrice, cutPrice,
                 printPrice, quantityPerSheet, product.getProductSize(), product.getMaterial(), product.getCuttingType(),
-                getProductionDate(product.getMaterial().getProductionTime()), product.getFile());
+                getProductionDate(product.getMaterial().getProductionTime()), product.getProductToken(), product.getPreviewFileName());
     }
 
 
