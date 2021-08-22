@@ -11,4 +11,17 @@ public enum ProductType {
     ProductType(String name) {
         this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public static ProductType asType(String str) throws Exception {
+        for (ProductType type : values()) {
+            if (type.name.equals(str)) {
+                return type;
+            }
+        }
+        throw new Exception("type not found");
+     }
 }

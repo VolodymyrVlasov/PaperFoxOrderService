@@ -24,9 +24,7 @@ public class PriceCalculatorService implements IPriceCalculatorService {
 
     @Override
     public PrintingProduct calculate(PrintingProduct product) throws Exception {
-
         product.setMaterial(FakeRepository.getMaterialByMaterialType(product.getMaterial().getMaterialType()));
-
         ProductGroupType productGroupType = product.getProductGroup().getProductGroupType();
         if (productGroupType == ProductGroupType.DRAWING) {
             logger.info("Calc request: " + product.getProductGroup());
@@ -49,12 +47,12 @@ public class PriceCalculatorService implements IPriceCalculatorService {
     @Override
     public CalculatorParams getRenderParamsByType(String materialGroupType) {
         Map<String, Integer> cuttingType = new HashMap<>();
-
         List<Material> materials = FakeRepository.getMaterialsByMaterialGroupType(materialGroupType);
 
         for (CuttingType e : CuttingType.values()) {
             cuttingType.put(e.name(), e.name);
         }
+
         return new CalculatorParams(materials, cuttingType);
     }
 }

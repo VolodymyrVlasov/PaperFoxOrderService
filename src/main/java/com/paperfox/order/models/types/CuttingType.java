@@ -13,7 +13,6 @@ public enum CuttingType {
     public final List<Price> price;
     public final int name;
 
-
     CuttingType(List<Price> price, int index) {
         this.price = price;
         this.name = index;

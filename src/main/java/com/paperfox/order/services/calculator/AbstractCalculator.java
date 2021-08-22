@@ -30,7 +30,6 @@ public abstract class AbstractCalculator {
 
     public double calcPrintPrice(double quantitySheetsPerCirculation, Material material) {
         List<Price> price = material.getPrice();
-
         if (quantitySheetsPerCirculation < price.get(0).getCirculation()) {
             return quantitySheetsPerCirculation * price.get(0).getPrice();
         } else if (quantitySheetsPerCirculation < price.get(1).getCirculation()) {

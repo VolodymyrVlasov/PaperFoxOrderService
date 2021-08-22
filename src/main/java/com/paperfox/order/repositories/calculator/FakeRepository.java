@@ -1,7 +1,9 @@
 package com.paperfox.order.repositories.calculator;
 
 import com.paperfox.order.fakeDB.MaterialsFakeDB;
+import com.paperfox.order.fakeDB.OrderListDB;
 import com.paperfox.order.fakeDB.TimeScopesFakeDB;
+import com.paperfox.order.models.Order;
 import com.paperfox.order.models.materials.Material;
 import com.paperfox.order.models.materials.MaterialType;
 import com.paperfox.order.models.materials.Price;
@@ -15,6 +17,10 @@ import java.util.Map;
 public class FakeRepository { //implements IFakeCalculatorRepository
     public static List<Material> getAllMaterials() {
         return MaterialsFakeDB.materials;
+    }
+
+    public static Order createOrder(Order order) {
+        return OrderListDB.createOrder(order);
     }
 
     public static List<Material> getMaterialsByMaterialGroupType(String groupType) {
@@ -36,7 +42,6 @@ public class FakeRepository { //implements IFakeCalculatorRepository
         }
         return null;
     }
-
 
     public static Map<String, Integer> getFirstDeadlineTime() {
         Map<String, Integer> time = new HashMap<>();

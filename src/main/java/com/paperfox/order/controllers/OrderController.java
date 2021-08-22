@@ -22,14 +22,13 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping(value = "/api/order", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    private void createOrder(@RequestBody Order order) {
+    private Order createOrder(@RequestBody Order order) {
         logger.info("Create Order: " + order.toString());
-        this.orderList.add(order);
+        return orderService.create(order);
     }
 
     @GetMapping("/api/order")
-    public List<Order> getOrder() {
-        return this.orderList;
+    public void getOrder() {
     }
 }
 

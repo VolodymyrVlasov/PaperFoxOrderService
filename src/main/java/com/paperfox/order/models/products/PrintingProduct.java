@@ -4,6 +4,7 @@ import com.paperfox.order.models.ProductGroup;
 import com.paperfox.order.models.materials.Material;
 import com.paperfox.order.models.ProductSize;
 import com.paperfox.order.models.types.CuttingType;
+import com.paperfox.order.models.types.ProductType;
 
 import java.io.File;
 import java.util.GregorianCalendar;
@@ -19,7 +20,6 @@ public class PrintingProduct {
     private Material material;
     private CuttingType cuttingType;
     private GregorianCalendar productionTime;
-    //    private String file;
     private String productToken;
     private String previewFileName;
 
@@ -138,19 +138,19 @@ public class PrintingProduct {
 
     @Override
     public String toString() {
-        return "PrintingProduct{" +
-                "productGroup=" + productGroup +
-                ", quantity=" + quantity +
-                ", totalPrice=" + totalPrice +
-                ", cutPrice=" + cutPrice +
-                ", printPrice=" + printPrice +
-                ", quantityPerSheet=" + quantityPerSheet +
-                ", productSize=" + productSize +
-                ", material=" + material +
-                ", cuttingType=" + cuttingType +
-                ", productionTime=" + productionTime +
-                ", productToken='" + productToken + '\'' +
-                ", previewFileName='" + previewFileName + '\'' +
-                '}';
+        return "\nPrintingProduct{" +
+                "\n\tproductGroup=" + productGroup +
+                "\n\tquantity=" + quantity +
+                "\n\ttotalPrice=" + totalPrice +
+                "\n\tcutPrice=" + cutPrice +
+                "\n\tprintPrice=" + printPrice +
+                "\n\tquantityPerSheet=" + quantityPerSheet +
+                "\n\tproductSize=" + productSize +
+                "\n\tmaterial=" + material +
+                "\n\tcuttingType=" + cuttingType +
+                "\n\tproductionTime=" + productionTime +
+                "\n\tproductToken='" + productToken + '\'' +
+                "\n\tpreviewFileName='" + previewFileName + '\'' +
+                "\n}";
     }
 }

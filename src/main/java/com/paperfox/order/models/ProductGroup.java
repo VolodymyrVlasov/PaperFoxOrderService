@@ -30,9 +30,9 @@ public class ProductGroup {
 
     @Override
     public String toString() {
-        return "ProductGroup{" +
-                "productGroup=" + productGroupType +
-                ", productType=" + productType +
-                '}';
+        return "\n\tProductGroup{" +
+                "\n\tproductGroup=" + productGroupType +
+                "\n\tproductType=" + productType +
+                "\n}";
     }
 }

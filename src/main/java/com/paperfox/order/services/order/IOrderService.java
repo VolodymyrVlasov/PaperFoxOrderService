@@ -4,9 +4,9 @@ import com.paperfox.order.models.Order;
 
 public interface IOrderService {
 
-    void create(Order order);
+    Order create(Order order);
 
-    void edit(Order order);
+    Order edit(Order order);
 
 
 }

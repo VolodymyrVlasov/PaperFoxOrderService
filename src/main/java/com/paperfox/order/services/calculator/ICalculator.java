@@ -10,7 +10,7 @@ public interface ICalculator {
 
     // todo make Date caclculation method
 
-    PrintingProduct calcProduct(PrintingProduct product);
+    PrintingProduct calcProduct(PrintingProduct product) throws Exception;
 
     double calculateQuantityPerSheet(Size printableArea, ProductSize size);
     double calculateCutPerSheet(ProductSize size, double quantityPerSheet);
